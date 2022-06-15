@@ -1,4 +1,4 @@
-import ClientHandler from "./ClientHandler";
+import ClientHandler from "./network/ClientHandler";
 import {Connection} from "packet-system";
 import {SimpleChatPacket} from "packet-system";
 
