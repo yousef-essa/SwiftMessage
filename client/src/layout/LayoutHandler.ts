@@ -1,5 +1,6 @@
 import LayoutPage from "./LayoutPage";
 import LayoutUtil from "./LayoutUtil";
+import EventHandler from "./event/EventHandler";
 // import * as fs from "fs"
 
 export default class LayoutHandler {
@@ -7,6 +8,7 @@ export default class LayoutHandler {
     private readonly parentElement: HTMLElement
 
     private readonly defaultLayout: LayoutPage | null
+    private readonly eventHandler: EventHandler
 
     constructor(parentElement: HTMLElement, defaultPageLayout: LayoutPage = null) {
         this.parentElement = parentElement
@@ -15,6 +17,7 @@ export default class LayoutHandler {
             this.registerLayoutPage(defaultPageLayout)
         }
         this.defaultLayout = defaultPageLayout
+        this.eventHandler = new EventHandler()
     }
 
     load() {
@@ -30,6 +33,7 @@ export default class LayoutHandler {
             throw new Error("Attempted to load a non-html file type: " + pageRender)
         }
 
+        this.eventHandler.setActiveLayout(page)
         fetch(`./public/${pageRender}`)
             .then(content => content.text())
             .then(innerHtml => {
@@ -38,14 +42,14 @@ export default class LayoutHandler {
                 for (let i = 0; i < dummyElement.children.length; i++) {
                     const element = dummyElement.children.item(i)
                     if (element.id == 'root') {
-                        console.log(element.childNodes.length)
                         element.childNodes.forEach((value, index: any)  => {
                             console.log(index)
                             dummyElement.append(value.cloneNode(true))
                         })
 
                         dummyElement.removeChild(element)
-                        console.log('removing root')
+                    } else {
+                        element.className = page.getId()
                     }
                 }
 
