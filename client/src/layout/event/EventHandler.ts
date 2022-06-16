@@ -46,7 +46,14 @@ export default class EventHandler {
             // serializes the given event to the appropriate layout event
             const serializedEvent = layoutEvent.getEventAdapter().serialize(event);
 
-            // notify the active layout with the serizlied event
+            // if the serialized input got returned null, that'd indicate
+            // that the adapter has decided to not go any further
+            // and we'll fulfill that action
+            if (serializedEvent == null) {
+                return;
+            }
+
+            // notify the active layout with the serialized event
             this.activeLayout.onEvent(serializedEvent)
         })
     }
