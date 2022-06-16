@@ -1,6 +1,7 @@
 import LayoutEvent from "./LayoutEvent";
 import LayoutPage from "../LayoutPage";
 import ClickEvent from "./default/click/ClickEvent";
+import InputSubmitEvent from "./default/inputsubmit/InputSubmitEvent";
 
 export default class EventHandler {
     private readonly eventMap = new Map<string, LayoutEvent<any>>()
@@ -8,6 +9,7 @@ export default class EventHandler {
 
     constructor() {
         this.registerEvent(new ClickEvent(null))
+        this.registerEvent(new InputSubmitEvent(null))
     }
 
     setActiveLayout(layout: LayoutPage) {
