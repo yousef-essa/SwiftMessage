@@ -1,3 +1,4 @@
 export enum Events {
-    CLICK = 'click'
+    CLICK = 'click',
+    INPUT_SUBMIT = 'keypress',
 }
