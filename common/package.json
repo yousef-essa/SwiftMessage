@@ -1,14 +1,57 @@
 {
-  "name": "@swiftmessage/common",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "keywords": [],
-  "author": "Tofpu",
-  "license": "ISC",
-  "dependencies": {
-    "packet-system": "^1.0.5",
-    "typescript": "^4.7.3"
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
   },
-  "private": true
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "@swiftmessage/common",
+  "author": "Tofpu",
+  "module": "dist/common-1.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/common-1.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/common-1.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "husky": "^8.0.1",
+    "size-limit": "^7.0.8",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.0",
+    "typescript": "^3.9.10"
+  },
+  "dependencies": {
+    "packet-system": "^1.0.5"
+  }
 }
