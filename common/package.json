@@ -31,7 +31,7 @@
     "trailingComma": "es5"
   },
   "name": "@swiftmessage/common",
-  "author": "Tofpu",
+  "author": "yousef-essa",
   "module": "dist/common-1.esm.js",
   "size-limit": [
     {
