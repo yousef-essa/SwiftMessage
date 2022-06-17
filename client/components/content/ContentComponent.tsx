@@ -1,6 +1,9 @@
 import React from "react";
-import UserComponent from "../user/UserComponent";
+import UserComponent from "./user/UserComponent";
 import MainContentComponent from "./MainContentComponent";
+import user from "../../lib/user";
+import client from "../../lib/client";
+import {UserAuthPacket} from "@swiftmessage/common";
 
 export default class ContentComponent extends React.Component<any, any> {
     constructor(props: any) {
@@ -10,16 +13,20 @@ export default class ContentComponent extends React.Component<any, any> {
         this.handleUserSubmit = this.handleUserSubmit.bind(this)
     }
 
-    handleUserSubmit(username: string) {
-        console.log(`User submitted ${username} as their username!`)
-        this.setState({
-            username: username
-        })
+    handleUserSubmit() {
+        // console.log(`User chose ${user.username} as their username!`)
+        // this.setState({
+        //     username: username
+        // })
+
+        client.getPacketHandler().send(new UserAuthPacket(user.getUser()), client.getServer()!!)
+
+        this.forceUpdate()
     }
 
     render() {
         const skipUser = this.props.skipUser ?? false
-        let username = this.state.username
+        let username = user.getUser()?.getUsername()
         let content
 
         if (skipUser || username) {

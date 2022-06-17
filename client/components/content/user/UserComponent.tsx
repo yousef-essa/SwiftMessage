@@ -1,4 +1,4 @@
-import {NextPage} from "next";
+import user from "../../../lib/user";
 
 function User(props: any) {
     return <>
@@ -9,9 +9,10 @@ function User(props: any) {
             }
 
             const target = event.target as HTMLInputElement;
-            if (props.onUsernameSubmit(target.value)) {
-                target.value = ""
-            }
+            user.createUser(target.value)
+            target.value = ""
+
+            props.onUsernameSubmit()
         }}/>
     </>
 }
