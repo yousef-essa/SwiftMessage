@@ -1,6 +1,9 @@
 import {WebSocket, WebSocketServer} from 'ws'
 import {PacketHandler} from "packet-system";
 import ClientConnection from "./ClientConnection";
+import {CommonPacketHandler} from "@swiftmessage/common";
+import UserAuthPacketAdapter from "./packet/UserAuthPacketAdapter";
+import UserHandler from "./lib/UserHandler";
 
 export default class ServerHandler {
     private static REGEX: RegExp = /(?<=\[).+?(?=\])/
@@ -8,13 +11,17 @@ export default class ServerHandler {
     private server: WebSocketServer | undefined
     private readonly port: number = 9000
 
+    private readonly userHandler: UserHandler
     private readonly packetHandler: PacketHandler
 
     constructor(port: number) {
         this.port = port
-        this.packetHandler = new PacketHandler({
+
+        this.userHandler = new UserHandler()
+        this.packetHandler = new CommonPacketHandler({
             debug: true
         })
+        this.packetHandler.registerPacket(new UserAuthPacketAdapter(this.userHandler))
 
         this.onClientConnection = this.onClientConnection.bind(this)
         this.onClientMessage = this.onClientMessage.bind(this)
