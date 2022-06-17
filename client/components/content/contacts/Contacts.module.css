@@ -3,6 +3,7 @@
     align-items: start;
 
     width: 200px;
+    border-right: black thin solid;
 }
 
 .title {

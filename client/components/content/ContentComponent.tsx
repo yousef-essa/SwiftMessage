@@ -6,6 +6,8 @@ export default class ContentComponent extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         this.state = {}
+
+        this.handleUserSubmit = this.handleUserSubmit.bind(this)
     }
 
     handleUserSubmit(username: string) {

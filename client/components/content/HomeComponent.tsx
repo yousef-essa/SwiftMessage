@@ -7,7 +7,7 @@ export default class HomeComponent extends React.Component<any, any> {
         return (
             <div id="root">
                 <HeaderComponent/>
-                <ContentComponent skipUser={true}/>
+                <ContentComponent skipUser={false}/>
             </div>
         );
     }
