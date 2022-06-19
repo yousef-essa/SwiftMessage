@@ -21,7 +21,6 @@ export default class ServerHandler {
         this.packetHandler = new CommonPacketHandler({
             debug: true
         })
-        this.packetHandler.registerPacket(new UserAuthPacketAdapter(this.userHandler))
 
         this.onClientConnection = this.onClientConnection.bind(this)
         this.onClientMessage = this.onClientMessage.bind(this)
