@@ -14,13 +14,7 @@ export default class ContentComponent extends React.Component<any, any> {
     }
 
     handleUserSubmit() {
-        // console.log(`User chose ${user.username} as their username!`)
-        // this.setState({
-        //     username: username
-        // })
-
         client.getPacketHandler().send(new UserAuthPacket(user.getUser()), client.getServer()!!)
-
         this.forceUpdate()
     }
 

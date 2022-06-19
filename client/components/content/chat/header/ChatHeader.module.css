@@ -1,0 +1,11 @@
+.header {
+    flex: 0 1 35px;
+    border-bottom: black thin solid;
+}
+
+.title {
+    font-weight: normal;
+    margin: 0;
+
+    text-align: center;
+}
