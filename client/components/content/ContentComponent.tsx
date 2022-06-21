@@ -14,7 +14,7 @@ export default class ContentComponent extends React.Component<any, any> {
     }
 
     handleUserSubmit() {
-        client.getPacketHandler().send(new UserAuthPacket(user.getUser()), client.getServer()!!)
+        client.getPacketHandler().send(new UserAuthPacket(user.getUser().getUsername()), client.getServer()!!)
         this.forceUpdate()
     }
 

@@ -1,6 +1,8 @@
 import {Connection, PacketHandler} from "packet-system";
 import ServerConnection from "./ServerConnection";
 import {CommonPacketHandler} from "@swiftmessage/common";
+import AddContactPacketAdapterWrapper from "./packet/AddContactPacketAdapterWrapper";
+import BadContactPacketAdapterWrapper from "./packet/BadContactPacketAdapterWrapper";
 
 export default class ClientHandler {
     private static REGEX: RegExp = /(?<=\[).+?(?=\])/
@@ -16,6 +18,8 @@ export default class ClientHandler {
         this.packetHandler = new CommonPacketHandler({
             debug: true
         })
+        this.packetHandler.registerPacket(new AddContactPacketAdapterWrapper())
+        this.packetHandler.registerPacket(new BadContactPacketAdapterWrapper())
 
         this.onServerConnection = this.onServerConnection.bind(this)
         this.onServerMessage = this.onServerMessage.bind(this)

@@ -1,9 +1,13 @@
 import {WebSocket, WebSocketServer} from 'ws'
 import {PacketHandler} from "packet-system";
 import ClientConnection from "./ClientConnection";
-import {CommonPacketHandler, UserAuthPacketAdapter} from "@swiftmessage/common";
+import {
+    AddContactPacketAdapter, BadContactPacketAdapter
+} from "@swiftmessage/common";
 import UserAuthPacketAdapterWrapper from "./packet/UserAuthPacketAdapterWrapper";
 import UserHandler from "./lib/UserHandler";
+import ContactRequestPacketAdapterWrapper from "./packet/ContactRequestPacketAdapterWrapper";
+import ContactHandler from "./lib/ContactHandler";
 
 export default class ServerHandler {
     private static REGEX: RegExp = /(?<=\[).+?(?=\])/
@@ -12,16 +16,23 @@ export default class ServerHandler {
     private readonly port: number = 9000
 
     private readonly userHandler: UserHandler
+    private readonly contactHandler: ContactHandler
     private readonly packetHandler: PacketHandler
 
     constructor(port: number) {
         this.port = port
 
         this.userHandler = new UserHandler()
+        this.contactHandler = new ContactHandler(this.userHandler)
         this.packetHandler = new PacketHandler({
-            debug: true
+            debug: true,
+            isServer: true
         })
+
         this.packetHandler.registerPacket(new UserAuthPacketAdapterWrapper(this.userHandler))
+        this.packetHandler.registerPacket(new ContactRequestPacketAdapterWrapper(this.contactHandler))
+        this.packetHandler.registerPacket(new AddContactPacketAdapter())
+        this.packetHandler.registerPacket(new BadContactPacketAdapter())
 
         this.onClientConnection = this.onClientConnection.bind(this)
         this.onClientMessage = this.onClientMessage.bind(this)
@@ -36,13 +47,13 @@ export default class ServerHandler {
         this.server.on('connection', (connection: WebSocket) => {
             this.onClientConnection(connection)
 
+            const clientConnection = new ClientConnection(connection)
             connection.on('message', (object) => {
                 const message = object.toString()
+
                 const packetType = ServerHandler.type(message)
 
-                const serverConnection = new ClientConnection(connection)
-
-                this.packetHandler.onReceive(packetType, serverConnection, ServerHandler.cleanUp(packetType, message))
+                this.packetHandler.onReceive(packetType, clientConnection, ServerHandler.cleanUp(packetType, message))
                 this.onClientMessage(connection, message)
             })
             connection.on('close', this.onClientDisconnection)

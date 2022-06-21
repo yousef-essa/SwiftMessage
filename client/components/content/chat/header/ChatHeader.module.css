@@ -1,5 +1,12 @@
 .header {
+    display: flex;
+
     flex: 0 1 35px;
+    flex-direction: row;
+
+    /*justify-content: center;*/
+    align-items: center;
+
     border-bottom: black thin solid;
 }
 
@@ -7,5 +14,7 @@
     font-weight: normal;
     margin: 0;
 
-    text-align: center;
+    width: 53%;
+
+    text-align: end;
 }

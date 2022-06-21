@@ -1,4 +1,4 @@
-import {PacketAdapter, PacketContext} from "packet-system";
+import {PacketAdapter, PacketContext, PacketReceiptStatus} from "packet-system";
 import UserAuthPacket from "./UserAuthPacket";
 
 export default class UserAuthPacketAdapter extends PacketAdapter<UserAuthPacket> {
@@ -13,5 +13,9 @@ export default class UserAuthPacketAdapter extends PacketAdapter<UserAuthPacket>
     // @ts-ignore
     onReceive(context: PacketContext<UserAuthPacket>): void {
         // up to the receiver
+    }
+
+    receiptStatus(): PacketReceiptStatus {
+        return PacketReceiptStatus.SERVER;
     }
 }
