@@ -1,6 +1,5 @@
 import {PacketAdapter, PacketContext} from "packet-system";
 import UserAuthPacket from "./UserAuthPacket";
-import User from "../user/User";
 
 export default class UserAuthPacketAdapter extends PacketAdapter<UserAuthPacket> {
     constructor() {
@@ -8,7 +7,7 @@ export default class UserAuthPacketAdapter extends PacketAdapter<UserAuthPacket>
     }
 
     onDeserialize(username: string): UserAuthPacket {
-        return new UserAuthPacket(new User(username));
+        return new UserAuthPacket(username);
     }
 
     // @ts-ignore

@@ -1,8 +1,8 @@
 import {WebSocket, WebSocketServer} from 'ws'
 import {PacketHandler} from "packet-system";
 import ClientConnection from "./ClientConnection";
-import {CommonPacketHandler} from "@swiftmessage/common";
-import UserAuthPacketAdapter from "./packet/UserAuthPacketAdapter";
+import {CommonPacketHandler, UserAuthPacketAdapter} from "@swiftmessage/common";
+import UserAuthPacketAdapterWrapper from "./packet/UserAuthPacketAdapterWrapper";
 import UserHandler from "./lib/UserHandler";
 
 export default class ServerHandler {
@@ -18,9 +18,10 @@ export default class ServerHandler {
         this.port = port
 
         this.userHandler = new UserHandler()
-        this.packetHandler = new CommonPacketHandler({
+        this.packetHandler = new PacketHandler({
             debug: true
         })
+        this.packetHandler.registerPacket(new UserAuthPacketAdapterWrapper(this.userHandler))
 
         this.onClientConnection = this.onClientConnection.bind(this)
         this.onClientMessage = this.onClientMessage.bind(this)

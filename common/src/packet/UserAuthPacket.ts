@@ -1,17 +1,16 @@
 import {Packet} from "packet-system";
-import User from "../user/User";
 
 export default class UserAuthPacket extends Packet {
     public static readonly PACKET_NAME = "UserAuth"
-    private readonly user: User
+    private readonly username: string
 
-    constructor(user: User) {
+    constructor(username: string) {
         super();
-        this.user = user
+        this.username = username
     }
 
-    getUser(): User {
-        return this.user
+    getUsername(): string {
+        return this.username
     }
 
     type(): string {
@@ -19,6 +18,6 @@ export default class UserAuthPacket extends Packet {
     }
 
     serialize(): string {
-        return this.user.getUsername()
+        return this.getUsername()
     }
 }

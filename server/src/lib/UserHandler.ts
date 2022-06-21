@@ -2,13 +2,13 @@ import {Connection} from "packet-system";
 import {User} from "@swiftmessage/common";
 
 export default class UserHandler {
-    private readonly userMap = new Map<User, Connection>()
+    private readonly userMap = new Map<Connection, User>()
 
-    addUser(user: User, connection: Connection) {
-        this.userMap.set(user, connection)
+    addUser(connection: Connection, username: string) {
+        this.userMap.set(connection, new User(username))
     }
 
-    removeUser(user: User) {
-        this.userMap.delete(user)
+    removeUser(connection: Connection) {
+        this.userMap.delete(connection)
     }
 }
