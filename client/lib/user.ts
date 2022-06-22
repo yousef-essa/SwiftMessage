@@ -1,7 +1,9 @@
 import {User} from "@swiftmessage/common";
+import ContactHandler from "./handler/ContactHandler";
 
 class UserHandler {
     private user: User | null = null
+    private contactHandler: ContactHandler | null = null
 
     isCreated(): boolean {
         return this.user != null
@@ -9,10 +11,15 @@ class UserHandler {
 
     createUser(username: string) {
         this.user = new User(username)
+        this.contactHandler = new ContactHandler(this.user)
     }
 
-    getUser(): User {
-        return this.user!!
+    getContactHandler(): ContactHandler {
+        return this.contactHandler!!
+    }
+
+    getUsername() {
+        return this.user?.getUsername() ?? ""
     }
 }
 

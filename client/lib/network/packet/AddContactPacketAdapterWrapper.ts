@@ -1,11 +1,12 @@
 import {AddContactPacketAdapter} from "@swiftmessage/common";
-import AddContactPacket from "@swiftmessage/common/dist/packet/AddContactPacket";
+import {AddContactPacket} from "@swiftmessage/common";
 import {PacketContext} from "packet-system";
+import user from "../../user";
 
 export default class AddContactPacketAdapterWrapper extends AddContactPacketAdapter {
     onReceive(context: PacketContext<AddContactPacket>) {
         const username = context.getPacket().getUsername()
 
-        // do something with the given response
+        user.getContactHandler().addContact(username)
     }
 }

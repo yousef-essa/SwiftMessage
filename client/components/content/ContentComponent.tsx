@@ -14,13 +14,13 @@ export default class ContentComponent extends React.Component<any, any> {
     }
 
     handleUserSubmit() {
-        client.getPacketHandler().send(new UserAuthPacket(user.getUser().getUsername()), client.getServer()!!)
+        client.getPacketHandler().send(new UserAuthPacket(user.getUsername()), client.getServer()!!)
         this.forceUpdate()
     }
 
     render() {
         const skipUser = this.props.skipUser ?? false
-        let username = user.getUser()?.getUsername()
+        let username = user.getUsername()
         let content
 
         if (skipUser || username) {

@@ -4,7 +4,7 @@ import {
     BadContactPacket,
     ContactRequestPacket,
     ContactRequestPacketAdapter,
-    ContactRequestResponseType
+    ContactRequestResponseType, User
 } from "@swiftmessage/common";
 import ContactHandler from "../lib/ContactHandler";
 

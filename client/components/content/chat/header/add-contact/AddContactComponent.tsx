@@ -1,7 +1,6 @@
 import React from "react";
 import styles from './AddContact.module.css'
-import client from "../../../../../lib/client";
-import {ContactRequestPacket} from "@swiftmessage/common";
+import user from "../../../../../lib/user";
 
 export default class AddContactComponent extends React.Component<any, any> {
     private ref: HTMLButtonElement | null = null
@@ -36,7 +35,12 @@ export default class AddContactComponent extends React.Component<any, any> {
             return;
         }
 
-        client.getPacketHandler().send(new ContactRequestPacket(value), client.getServer()!!)
+        const contactHandler = user.getContactHandler();
+        if (user.getUsername() == value || contactHandler.hasContact(value)) {
+            console.log(`${value} is already in your contacts list!`)
+        } else {
+            contactHandler.requestContact(value)
+        }
         inputElement.value = ""
     }
 

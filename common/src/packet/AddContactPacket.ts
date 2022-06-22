@@ -14,7 +14,7 @@ export default class AddContactPacket extends Packet {
     }
 
     serialize(): string {
-        return this.getUsername();
+        return this.username;
     }
 
     type(): string {
