@@ -1,6 +1,9 @@
 import React from "react";
 import styles from "./ChatContent.module.css";
 import MessageComponent from "./message/MessageComponent";
+import user from "../../../../lib/user";
+import contact from "../../../../lib/contact";
+import { Message } from "@swiftmessage/common";
 
 export default class ChatContentComponent extends React.Component<any, any> {
     private ref: HTMLDivElement | null = null
@@ -8,7 +11,6 @@ export default class ChatContentComponent extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
     }
-
 
     componentDidMount() {
         this.scrollToBottom()
@@ -22,12 +24,22 @@ export default class ChatContentComponent extends React.Component<any, any> {
         this.ref?.scrollBy(0, this.ref?.scrollHeight)
     }
 
+    generateMessages() {
+        const targetUsername = contact.getCurrentContent();
+        const selfUser = user.getPersonalHandler()
+            .getUser();
+
+        const selfMessages = selfUser.getMessagesBy(targetUsername) ?? []
+        const targetMessages = user.getUser(targetUsername)?.getMessagesBy(selfUser.getUsername()) ?? []
+
+        targetMessages.map((value: Message) => selfMessages.push(value))
+        return selfMessages
+    }
+
     render() {
         let index = 0
-        const messages = this.props.messages.map((message: string) => {
-            return message.split(" ")
-        }).map((content: string[]) => {
-            return <MessageComponent key={index++} username={content[0]} content={content.slice(1).join(" ")}/>
+        const messages = this.generateMessages().map((message: Message) => {
+            return <MessageComponent key={index++} username={message.getFrom()} content={message.getMessage()}/>
         })
 
         return (

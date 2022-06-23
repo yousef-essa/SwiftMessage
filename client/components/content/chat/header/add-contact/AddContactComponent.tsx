@@ -35,8 +35,9 @@ export default class AddContactComponent extends React.Component<any, any> {
             return;
         }
 
-        const contactHandler = user.getContactHandler();
-        if (user.getUsername() == value || contactHandler.hasContact(value)) {
+        const personalHandler = user.getPersonalHandler();
+        const contactHandler = personalHandler.getContactHandler();
+        if (personalHandler.getUsername() == value || contactHandler.hasContact(value)) {
             console.log(`${value} is already in your contacts list!`)
         } else {
             contactHandler.requestContact(value)

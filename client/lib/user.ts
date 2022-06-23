@@ -1,31 +1,64 @@
-import {User, UserAuthPacket} from "@swiftmessage/common";
-import ContactHandler from "./handler/ContactHandler";
-import client from "./client";
+import {Message, User} from "@swiftmessage/common";
+import PersonalHandler from "./handler/PersonalHandler";
 
 class UserHandler {
-    private user: User | null = null
-    private contactHandler: ContactHandler | null = null
+    private readonly personalHandler = new PersonalHandler()
+    private readonly userMap = new Map<string, User>()
 
-    isCreated(): boolean {
-        return this.user != null
+    onMessageUpdate(): void {
     }
 
-    createUser(username: string) {
-        if (this.user != null) {
-            return
+    addSelfMessage(recipientUsername: string, message: Message) {
+        const sender = this.personalHandler.getUser()
+        const recipient = this.getUserOrCreate(recipientUsername)
+
+        if (!recipient.hasContact(sender.getUsername())) {
+            recipient.addContact(sender)
         }
 
-        this.user = new User(username)
-        this.contactHandler = new ContactHandler(this.user)
-        client.getPacketHandler().send(new UserAuthPacket(username), client.getServer()!!)
+        console.log(`[DESPERATE; ${sender.getUsername()}] sender messages before: ${JSON.stringify(sender.getMessagesBy(recipientUsername))}`)
+        sender.addMessage(recipient, message)
+        console.log(`[DESPERATE; ${sender.getUsername()}] sender messages before: ${JSON.stringify(sender.getMessagesBy(recipientUsername))}`)
+
+        console.log(`[${sender.getUsername()}] sent ${JSON.stringify(message)} to ${recipient.getUsername()}`)
+
+        this.onMessageUpdate()
     }
 
-    getContactHandler(): ContactHandler {
-        return this.contactHandler!!
+    addMessage(senderUsername: string, message: Message) {
+        const sender = this.getUserOrCreate(senderUsername)
+        const recipient = this.personalHandler.getUser()
+
+        if (!sender.hasContact(recipient.getUsername())) {
+            sender.addContact(recipient)
+        }
+
+        sender.addMessage(recipient, message)
+        console.log(`sent ${JSON.stringify(message)} to ${recipient.getUsername()}`)
+        this.onMessageUpdate()
     }
 
-    getUsername() {
-        return this.user?.getUsername() ?? ""
+    addUser(user: User) {
+        this.userMap.set(user.getUsername(), user)
+    }
+
+    getUserOrCreate(username: string): User {
+        let user = this.getUser(username)
+
+        if (user == null) {
+            user = new User(username, null!!)
+            this.addUser(user)
+            console.log(`created user instance of ${username}`)
+        }
+        return user
+    }
+
+    getUser(username: string): User | null {
+        return this.userMap.get(username) ?? null
+    }
+
+    getPersonalHandler(): PersonalHandler {
+        return this.personalHandler
     }
 }
 

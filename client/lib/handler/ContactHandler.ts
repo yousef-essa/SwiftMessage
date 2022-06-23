@@ -1,5 +1,6 @@
 import {ContactRequestPacket, User } from "@swiftmessage/common";
 import client from "../client";
+import user from "../user";
 
 export default class ContactHandler {
     private readonly user: User
@@ -17,7 +18,7 @@ export default class ContactHandler {
     }
 
     addContact(username: string) {
-        this.user.addContact(new User(username))
+        this.user.addContact(user.getUserOrCreate(username))
         this.onAddContact()
     }
 

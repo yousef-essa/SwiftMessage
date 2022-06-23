@@ -10,17 +10,10 @@ export default class MainContentComponent extends React.Component<any, any> {
     }
 
     render() {
-        const username = this.props.username
-        const chatTarget = this.state.chatTarget ?? {}
-
         return (
             <div className={styles.style}>
-                <ContactsComponent onClick={(props: any) => {
-                    this.setState({
-                        chatTarget: props
-                    })
-                }}/>
-                <ChatComponent username={username} target={chatTarget}/>
+                <ContactsComponent/>
+                <ChatComponent/>
             </div>
         );
     }

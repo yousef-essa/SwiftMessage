@@ -1,32 +1,46 @@
 import React from "react";
 import styles from './Chat.module.css'
 import ChatInputComponent from "./input/ChatInputComponent";
-import MessageComponent from "./content/message/MessageComponent";
 import ChatHeaderComponent from "./header/ChatHeaderComponent";
 import ChatContentComponent from "./content/ChatContentComponent";
+import user from "../../../lib/user";
+import contact from "../../../lib/contact";
+import { Message, MessagePacket } from "@swiftmessage/common";
+import client from "../../../lib/client";
 
 export default class ChatComponent extends React.Component<any, any> {
-    private previousTarget: string | null = null
-
     constructor(props: any) {
         super(props);
         this.state = {
             messages: []
         }
-        this.previousTarget = this.props.target
+
+        contact.onContentChange = () => {
+            // this.resetMessages()
+            this.forceUpdate()
+        }
+
+        user.onMessageUpdate = () => {
+            this.forceUpdate()
+        }
 
         this.constructMessage = this.constructMessage.bind(this)
     }
 
-    constructMessage(content: string) {
-        if (this.props.target.username == null) {
+    constructMessage(message: string) {
+        const username = user.getPersonalHandler().getUsername();
+        if (username == "") {
             return
         }
 
-        this.state.messages.push(`${this.props.username} ${content}`)
-        this.setState({
-            messages: this.state.messages
-        })
+        const currentContent = contact.getCurrentContent();
+        const messageData = new Message(username, currentContent, message);
+        client.getPacketHandler().send(new MessagePacket(messageData, [currentContent]), client.getServer()!!)
+
+        // this.state.messages.push(`${username} ${message}`)
+        // this.setState({
+        //     messages: this.state.messages
+        // })
     }
 
     resetMessages() {
@@ -36,18 +50,10 @@ export default class ChatComponent extends React.Component<any, any> {
     }
 
     render() {
-        const targetProps = this.props.target
-        const username = targetProps.username
-
-        if (targetProps != this.previousTarget) {
-            this.previousTarget = targetProps
-            this.resetMessages()
-        }
-
         return (
             <div className={styles.container}>
-                <ChatHeaderComponent username={username}/>
-                <ChatContentComponent messages={this.state.messages}/>
+                <ChatHeaderComponent/>
+                <ChatContentComponent/>
                 <ChatInputComponent onMessageSubmit={this.constructMessage}/>
             </div>
         );

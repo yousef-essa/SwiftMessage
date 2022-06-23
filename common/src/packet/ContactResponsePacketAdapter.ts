@@ -21,6 +21,6 @@ export default class ContactResponsePacketAdapter extends PacketAdapter<ContactR
     }
 
     receiptStatus(): PacketReceiptStatus {
-        return PacketReceiptStatus.SERVER;
+        return PacketReceiptStatus.CLIENT;
     }
 }

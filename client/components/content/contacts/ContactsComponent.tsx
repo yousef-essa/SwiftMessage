@@ -2,25 +2,20 @@ import React from "react";
 import styles from './Contacts.module.css'
 import ContactItemComponent from "./item/ContactItemComponent";
 import user from "../../../lib/user";
+import contact from "../../../lib/contact";
 
 export default class ContactsComponent extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
 
-        this.handleClick = this.handleClick.bind(this)
         this.generateContactList = this.generateContactList.bind(this)
 
-        user.getContactHandler().onAddContact = () => this.forceUpdate()
-    }
-
-    handleClick(props: any) {
-        this.props.onClick(props)
+        user.getPersonalHandler().getContactHandler().onAddContact = () => this.forceUpdate()
     }
 
     generateContactList() {
         let keyIndex = 0
-
-        return user.getContactHandler().getContacts().map(user => <ContactItemComponent key={keyIndex++} username={user.getUsername()} onClick={this.handleClick}/>)
+        return user.getPersonalHandler().getContactHandler().getContacts().map(user => <ContactItemComponent key={keyIndex++} username={user.getUsername()}/>)
     }
 
     render() {

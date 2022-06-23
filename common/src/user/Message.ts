@@ -1,21 +1,32 @@
-import User from "./User";
-
 export default class Message {
-    private readonly from: User
-    private readonly to: User
+    private readonly from: string
+    private readonly to: string
     private readonly message: string
 
-    constructor(from: User, to: User, message: string) {
+    constructor(from: string, to: string, message: string) {
         this.from = from;
         this.to = to;
         this.message = message;
     }
 
-    getFrom(): User {
+    static deserialize(serializedData: string): Message {
+        const args = serializedData.split(" ")
+        const from = args[0]
+        const to = args[1]
+        const message = args.slice(2).join("")
+
+        return new Message(from, to, message)
+    }
+
+    serialize(): string {
+        return `${this.getFrom()} ${this.getTo()} ${this.getMessage()}`
+    }
+
+    getFrom(): string {
         return this.from
     }
 
-    getTo(): User {
+    getTo(): string {
         return this.to
     }
 
