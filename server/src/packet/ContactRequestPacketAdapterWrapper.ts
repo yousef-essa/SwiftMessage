@@ -1,10 +1,8 @@
 import {PacketContext} from "packet-system";
 import {
-    AddContactPacket,
-    BadContactPacket,
     ContactRequestPacket,
     ContactRequestPacketAdapter,
-    ContactRequestResponseType, User
+    ContactResponsePacket
 } from "@swiftmessage/common";
 import ContactHandler from "../lib/ContactHandler";
 
@@ -21,12 +19,9 @@ export default class ContactRequestPacketAdapterWrapper extends ContactRequestPa
         const targetUsername = context.getPacket().getUsername();
         const validateRequest = this.contactHandler.validateRequest(senderConnection, targetUsername)
 
-        if (validateRequest == ContactRequestResponseType.ACCEPTED) {
-            // send a good packet
-            context.getPacketHandler().send(new AddContactPacket(targetUsername), senderConnection)
-        } else {
-            // send a bad packet
-            context.getPacketHandler().send(new BadContactPacket(targetUsername, validateRequest), senderConnection)
-        }
+        console.log(`sending ${targetUsername} for ${validateRequest} reason`)
+
+        // send a response from that request
+        context.getPacketHandler().send(new ContactResponsePacket(targetUsername, validateRequest), senderConnection)
     }
 }

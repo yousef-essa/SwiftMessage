@@ -1,8 +1,7 @@
 import {PacketHandler} from "packet-system";
 import UserAuthPacketAdapter from "./packet/UserAuthPacketAdapter";
 import ContactRequestPacketAdapter from "./packet/ContactRequestPacketAdapter";
-import BadContactPacketAdapter from "./packet/BadContactPacketAdapter";
-import AddContactPacketAdapter from "./packet/AddContactPacketAdapter";
+import ContactResponsePacketAdapter from "./packet/ContactResponsePacketAdapter";
 
 export default class CommonPacketHandler extends PacketHandler {
     registerDefaultPackets() {
@@ -13,7 +12,6 @@ export default class CommonPacketHandler extends PacketHandler {
         this.registerPacket(new ContactRequestPacketAdapter())
 
         // client packet receivers here
-        this.registerPacket(new AddContactPacketAdapter())
-        this.registerPacket(new BadContactPacketAdapter())
+        this.registerPacket(new ContactResponsePacketAdapter())
     }
 }

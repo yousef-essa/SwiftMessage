@@ -1,8 +1,8 @@
 import {Packet} from "packet-system";
 import {ContactRequestResponseType} from "./ContactRequestPacket";
 
-export default class BadContactPacket extends Packet {
-    public static readonly PACKET_NAME = "BadContact"
+export default class ContactResponsePacket extends Packet {
+    public static readonly PACKET_NAME = "ContactResponse"
     private readonly username: string
     private readonly reason: ContactRequestResponseType
 
@@ -25,7 +25,6 @@ export default class BadContactPacket extends Packet {
     }
 
     type(): string {
-        return BadContactPacket.PACKET_NAME;
+        return ContactResponsePacket.PACKET_NAME;
     }
-
 }
