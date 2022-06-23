@@ -5,7 +5,8 @@ import UserAuthPacketAdapterWrapper from "./packet/UserAuthPacketAdapterWrapper"
 import UserHandler from "./lib/UserHandler";
 import ContactRequestPacketAdapterWrapper from "./packet/ContactRequestPacketAdapterWrapper";
 import ContactHandler from "./lib/ContactHandler";
-import {ContactResponsePacketAdapter} from "@swiftmessage/common";
+import {CommonPacketHandler, ContactResponsePacketAdapter} from "@swiftmessage/common";
+import MessagePacketAdapterWrapper from "./packet/MessagePacketAdapterWrapper";
 
 export default class ServerHandler {
     private static REGEX: RegExp = /(?<=\[).+?(?=\])/
@@ -22,14 +23,14 @@ export default class ServerHandler {
 
         this.userHandler = new UserHandler()
         this.contactHandler = new ContactHandler(this.userHandler)
-        this.packetHandler = new PacketHandler({
+        this.packetHandler = new CommonPacketHandler({
             debug: true,
             isServer: true
         })
 
         this.packetHandler.registerPacket(new UserAuthPacketAdapterWrapper(this.userHandler))
         this.packetHandler.registerPacket(new ContactRequestPacketAdapterWrapper(this.contactHandler))
-        this.packetHandler.registerPacket(new ContactResponsePacketAdapter())
+        this.packetHandler.registerPacket(new MessagePacketAdapterWrapper(this.userHandler))
 
         this.onClientConnection = this.onClientConnection.bind(this)
         this.onClientMessage = this.onClientMessage.bind(this)

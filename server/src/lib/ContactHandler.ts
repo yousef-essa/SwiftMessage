@@ -4,7 +4,6 @@ import {Connection} from "packet-system";
 
 export default class ContactHandler {
     private readonly userHandler: UserHandler
-    private readonly contactMap = new Map<User, User>()
 
     constructor(userHandler: UserHandler) {
         this.userHandler = userHandler;
@@ -32,12 +31,11 @@ export default class ContactHandler {
             return ContactRequestResponseType.INVALID_TARGET
         }
 
-        // everything checks out! Let's bind them these two users both!
-        this.addRequest(senderUser, targetUser)
-        return ContactRequestResponseType.ACCEPTED
-    }
+        // add contact in our side since we'll be sending
+        // out the accepted response
+        senderUser.addContact(targetUser)
 
-    addRequest(sender: User, target: User) {
-        this.contactMap.set(sender, target)
+        // everything checks out!
+        return ContactRequestResponseType.ACCEPTED
     }
 }

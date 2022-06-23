@@ -16,16 +16,17 @@ export default class ContentComponent extends React.Component<any, any> {
     }
 
     render() {
-        const skipUser = this.props.skipUser ?? false
-        let username = user.getUsername()
+        let skipUser = this.props.skipUser
+        let username = user.getPersonalHandler().getUsername()
         let content
 
-        if (skipUser || username) {
-            if (skipUser) {
-                username = "Anonymous"
-            }
+        if (skipUser && username.length == 0) {
+            user.getPersonalHandler().createUser("Anonymous")
+            username = "Anonymous"
+        }
 
-            content = <MainContentComponent username={username}/>
+        if (username.length != 0) {
+            content = <MainContentComponent/>
         } else {
             content = <UserComponent onUsernameSubmit={this.handleUserSubmit}/>
         }

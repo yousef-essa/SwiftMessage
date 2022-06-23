@@ -7,6 +7,10 @@ import ContactRequestPacket, { ContactRequestResponseType } from "./packet/Conta
 import ContactRequestPacketAdapter from "./packet/ContactRequestPacketAdapter";
 import ContactResponsePacket from "./packet/ContactResponsePacket";
 import ContactResponsePacketAdapter from "./packet/ContactResponsePacketAdapter";
+import MessagePacket from "./packet/MessagePacket";
+import MessagePacketAdapter from "./packet/MessagePacketAdapter";
+import MessageReceivePacketAdapter from "./packet/MessageReceivePacketAdapter";
+import MessageReceivePacket from "./packet/MessageReceivePacket";
 
 export {
     CommonPacketHandler,
@@ -19,4 +23,8 @@ export {
     ContactRequestResponseType,
     ContactResponsePacket,
     ContactResponsePacketAdapter,
+    MessagePacket,
+    MessagePacketAdapter,
+    MessageReceivePacket,
+    MessageReceivePacketAdapter,
 }

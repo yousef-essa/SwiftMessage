@@ -1,12 +1,15 @@
+import { Connection } from "packet-system";
 import Message from "./Message";
 
 export default class User {
     private readonly username: string
+    private readonly connection: Connection
     private readonly contactMap = new Map<string, User>()
     private readonly messageMap = new Map<User, Message[]>()
 
-    constructor(username: string) {
+    constructor(username: string, connection: Connection) {
         this.username = username;
+        this.connection = connection
     }
 
     hasContact(username: string): boolean {
@@ -29,17 +32,19 @@ export default class User {
         }
 
         messages.push(message)
-
-        this.messageMap.set(user, messages)
     }
 
     getUsername(): string {
         return this.username
     }
 
+    getConnection(): Connection {
+        return this.connection
+    }
+
     getMessagesBy(username: string): Message[] | null {
-        for (const [key, value] of Object.entries(this.messageMap.entries())) {
-            const user = key as unknown as User
+        // @ts-ignore
+        for (const [user, value] of this.messageMap.entries()) {
             if (user.getUsername() != username) {
                 continue
             }

@@ -6,10 +6,11 @@ export default class UserHandler {
     private readonly userMap = new Map<string, User>()
 
     addUser(connection: Connection, username: string) {
-        console.log(`Added user ${username} to the registry with ${connection.id()} id!`)
+        const connectionId = connection.id();
+        console.log(`Added user ${username} to the registry with ${connectionId} id!`)
 
-        this.connectionMap.set(connection.id(), connection)
-        this.userMap.set(connection.id(), new User(username))
+        this.connectionMap.set(connectionId, connection)
+        this.userMap.set(connectionId, new User(username, connection))
     }
 
     removeUser(connection: Connection) {

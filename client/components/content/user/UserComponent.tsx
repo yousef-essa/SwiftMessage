@@ -9,7 +9,7 @@ function User(props: any) {
             }
 
             const target = event.target as HTMLInputElement;
-            user.createUser(target.value)
+            user.getPersonalHandler().createUser(target.value)
             target.value = ""
 
             props.onUsernameSubmit()
