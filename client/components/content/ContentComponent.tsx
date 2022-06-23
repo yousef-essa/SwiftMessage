@@ -2,8 +2,6 @@ import React from "react";
 import UserComponent from "./user/UserComponent";
 import MainContentComponent from "./MainContentComponent";
 import user from "../../lib/user";
-import client from "../../lib/client";
-import {UserAuthPacket} from "@swiftmessage/common";
 
 export default class ContentComponent extends React.Component<any, any> {
     constructor(props: any) {
@@ -14,7 +12,6 @@ export default class ContentComponent extends React.Component<any, any> {
     }
 
     handleUserSubmit() {
-        client.getPacketHandler().send(new UserAuthPacket(user.getUsername()), client.getServer()!!)
         this.forceUpdate()
     }
 

@@ -1,5 +1,6 @@
-import {User} from "@swiftmessage/common";
+import {User, UserAuthPacket} from "@swiftmessage/common";
 import ContactHandler from "./handler/ContactHandler";
+import client from "./client";
 
 class UserHandler {
     private user: User | null = null
@@ -10,8 +11,13 @@ class UserHandler {
     }
 
     createUser(username: string) {
+        if (this.user != null) {
+            return
+        }
+
         this.user = new User(username)
         this.contactHandler = new ContactHandler(this.user)
+        client.getPacketHandler().send(new UserAuthPacket(username), client.getServer()!!)
     }
 
     getContactHandler(): ContactHandler {
