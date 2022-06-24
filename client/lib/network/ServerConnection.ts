@@ -1,18 +1,16 @@
-import { WebSocket } from 'ws'
 import {Connection} from "packet-system";
-import crypto from "crypto"
 
-export default class ClientConnection extends Connection {
+export default class ServerConnection extends Connection {
+    private static readonly SERVER_ID = "IT_DOES_NOT_MATTER"
     private readonly socket: WebSocket
-    private readonly uuid = crypto.randomUUID().toString()
 
     constructor(socket: WebSocket) {
-        super()
+        super();
         this.socket = socket;
     }
 
     id(): string {
-        return this.uuid;
+        return ServerConnection.SERVER_ID;
     }
 
     send(message: string) {
