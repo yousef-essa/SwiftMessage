@@ -1,7 +1,6 @@
 import {ContactRequestResponseType, ContactResponsePacket, ContactResponsePacketAdapter } from "@swiftmessage/common";
 import { PacketContext } from "packet-system";
 import user from "../../user";
-import contact from "../../contact";
 
 export default class ContactResponsePacketAdapterWrapper extends ContactResponsePacketAdapter {
     onReceive(context: PacketContext<ContactResponsePacket>) {
@@ -16,6 +15,6 @@ export default class ContactResponsePacketAdapterWrapper extends ContactResponse
             return
         }
 
-        contact.onContentError(reason)
+        // else, send an error popout or something here...
     }
 }

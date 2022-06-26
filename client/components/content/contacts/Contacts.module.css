@@ -1,9 +1,19 @@
-.container {
-    display: flex;
-    flex-direction: column;
+#contacts {
+    justify-content: start;
+    align-items: start;
 
-    height: 100%;
-    width: 350px;
-
-    border-right: rgba(0, 0, 0, 0.5) thin solid;
+    width: 200px;
+    border-right: black thin solid;
 }
+
+.title {
+    font-weight: normal;
+    margin: 0;
+
+    height: 35px;
+
+    text-align: center;
+    border-bottom: black thin solid;
+}
+
+.container {}

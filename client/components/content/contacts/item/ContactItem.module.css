@@ -1,0 +1,21 @@
+.box {
+    height: 50px;
+    border-bottom: black thin solid;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+.box:hover {
+    background-color: darkgray;
+}
+
+.username {}
+
+.onlineDate {}
+
+.username, .onlineDate {
+    padding-left: 5px;
+}

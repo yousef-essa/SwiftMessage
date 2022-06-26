@@ -1,14 +1,13 @@
 import React from "react";
-import HeaderComponent from "./header/HeaderComponent";
-import HomeContentComponent from "./HomeContentComponent";
-import styles from "./home.module.css"
+import HeaderComponent from "./content/header/HeaderComponent";
+import ContentComponent from "./content/ContentComponent";
 
 export default class HomeComponent extends React.Component<any, any> {
     render() {
         return (
-            <div className={styles.container}>
+            <div id="root">
                 <HeaderComponent/>
-                <HomeContentComponent skipUser={false}/>
+                <ContentComponent skipUser={false}/>
             </div>
         );
     }

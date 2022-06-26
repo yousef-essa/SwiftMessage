@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./chatcontent.module.css";
+import styles from "./ChatContent.module.css";
 import MessageComponent from "./message/MessageComponent";
 
 export default class ChatContentComponent extends React.Component<any, any> {
@@ -14,7 +14,7 @@ export default class ChatContentComponent extends React.Component<any, any> {
         this.scrollToBottom()
     }
 
-    componentDidUpdate(prevState: Readonly<any>, snapshot?: any) {
+    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
         this.scrollToBottom()
     }
 
@@ -22,21 +22,6 @@ export default class ChatContentComponent extends React.Component<any, any> {
         this.ref?.scrollBy(0, this.ref?.scrollHeight)
     }
 
-<<<<<<< Updated upstream
-=======
-    generateMessages() {
-        const targetUsername = contact.getCurrentContent();
-        const selfUser = user.getPersonalHandler()
-            .getUser();
-
-        const selfMessages = selfUser.getMessagesTo(targetUsername) ?? []
-        const targetMessages = user.getUser(targetUsername)?.getMessagesTo(selfUser.getUsername()) ?? []
-
-        targetMessages.map((value: Message) => selfMessages.push(value))
-        return selfMessages
-    }
-
->>>>>>> Stashed changes
     render() {
         let index = 0
         const messages = this.props.messages.map((message: string) => {
@@ -46,10 +31,8 @@ export default class ChatContentComponent extends React.Component<any, any> {
         })
 
         return (
-            <div ref={ref => this.ref = ref} className={styles.container}>
-                <div className={styles.items}>
-                    {messages}
-                </div>
+            <div ref={ref => this.ref = ref} className={styles.content}>
+                {messages}
             </div>
         );
     }

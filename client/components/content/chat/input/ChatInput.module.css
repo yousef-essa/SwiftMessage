@@ -1,0 +1,22 @@
+.container {
+    flex: 0 1 50px;
+    border-top: black thin solid;
+
+    display: flex;
+    /*flex-direction: column;*/
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.button {
+    background-color: inherit;
+    border: black thin solid;
+}
+
+.input {
+    height: 20px;
+    border: black thin solid;
+}

@@ -3,10 +3,6 @@
     flex-direction: column;
 
     height: 50px;
-    border-left: rgba(0, 0, 0, .5) thin solid;
-    padding-left: 20px;
-
-    margin-bottom: 20px;
 
     justify-content: center;
 }
@@ -17,4 +13,4 @@
 
 .username {}
 
-.container {}
+.content {}
