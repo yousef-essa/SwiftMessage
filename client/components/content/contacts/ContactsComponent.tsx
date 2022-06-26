@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< Updated upstream
 import styles from './Contacts.module.css'
 import ContactItemComponent from "./item/ContactItemComponent";
 import user from "../../../lib/user";
@@ -23,18 +24,20 @@ export default class ContactsComponent extends React.Component<any, any> {
         return user.getContactHandler().getContacts().map(user => <ContactItemComponent key={keyIndex++} username={user.getUsername()} onClick={this.handleClick}/>)
     }
 
+=======
+import styles from './contacts.module.css'
+import AddContactComponent from "./add-contact/AddContactComponent";
+import ContactsHeaderComponent from "./header/ContactsHeaderComponent";
+import ContactsContentComponent from "./content/ContactsContentComponent";
+
+export default class ContactsComponent extends React.Component<any, any> {
+>>>>>>> Stashed changes
     render() {
-        const contacts = this.generateContactList()
-
         return (
-            <div id={styles.contacts}>
-                <div className="header">
-                    <h2 className={styles.title}>Contacts</h2>
-                </div>
-
-                <div className={styles.container}>
-                    {contacts}
-                </div>
+            <div className={styles.container}>
+                <ContactsHeaderComponent/>
+                <ContactsContentComponent/>
+                <AddContactComponent/>
             </div>
         );
     }

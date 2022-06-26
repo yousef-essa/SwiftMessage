@@ -37,10 +37,21 @@ export default class User {
         return this.username
     }
 
+<<<<<<< Updated upstream
     getMessagesBy(username: string): Message[] | null {
         for (const [key, value] of Object.entries(this.messageMap.entries())) {
             const user = key as unknown as User
             if (user.getUsername() != username) {
+=======
+    getConnection(): Connection {
+        return this.connection
+    }
+
+    getMessagesTo(recipient: string): Message[] | null {
+        // @ts-ignore
+        for (const [user, value] of this.messageMap.entries()) {
+            if (user.getUsername() != recipient) {
+>>>>>>> Stashed changes
                 continue
             }
 

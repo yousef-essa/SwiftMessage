@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    flex-grow: 1;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.field {
+    padding-bottom: 10px;
+}
+
+.title {
+    padding-bottom: 2px;
+}
+
+.input {
+    width: 250px;
+}
+
+.button {
+    padding-left: 25px;
+    padding-right: 25px;
+
+    margin-top: 20px;
+}
