@@ -42,10 +42,10 @@ export default class User {
         return this.connection
     }
 
-    getMessagesBy(username: string): Message[] | null {
+    getMessagesTo(recipient: string): Message[] | null {
         // @ts-ignore
         for (const [user, value] of this.messageMap.entries()) {
-            if (user.getUsername() != username) {
+            if (user.getUsername() != recipient) {
                 continue
             }
 

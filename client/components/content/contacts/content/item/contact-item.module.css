@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 80px;
+
+    border: rgba(0, 0, 0, .5) thin solid;
+    border-radius: 10px;
+
+    padding: 20px;
+    margin-bottom: 10px;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.container:hover {
+    background-color: darkgray;
+}
+
+.username {}
+
+.onlineDate {}
+
+.username, .onlineDate {
+    padding-left: 5px;
+}
+
+.selected {
+    background-color: rgba(0, 0, 0, 0.1);
+}

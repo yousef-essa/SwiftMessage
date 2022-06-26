@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ChatContent.module.css";
+import styles from "./chatcontent.module.css";
 import MessageComponent from "./message/MessageComponent";
 import user from "../../../../lib/user";
 import contact from "../../../../lib/contact";
@@ -16,7 +16,7 @@ export default class ChatContentComponent extends React.Component<any, any> {
         this.scrollToBottom()
     }
 
-    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
+    componentDidUpdate(prevState: Readonly<any>, snapshot?: any) {
         this.scrollToBottom()
     }
 
@@ -29,8 +29,8 @@ export default class ChatContentComponent extends React.Component<any, any> {
         const selfUser = user.getPersonalHandler()
             .getUser();
 
-        const selfMessages = selfUser.getMessagesBy(targetUsername) ?? []
-        const targetMessages = user.getUser(targetUsername)?.getMessagesBy(selfUser.getUsername()) ?? []
+        const selfMessages = selfUser.getMessagesTo(targetUsername) ?? []
+        const targetMessages = user.getUser(targetUsername)?.getMessagesTo(selfUser.getUsername()) ?? []
 
         targetMessages.map((value: Message) => selfMessages.push(value))
         return selfMessages
@@ -43,8 +43,10 @@ export default class ChatContentComponent extends React.Component<any, any> {
         })
 
         return (
-            <div ref={ref => this.ref = ref} className={styles.content}>
-                {messages}
+            <div ref={ref => this.ref = ref} className={styles.container}>
+                <div className={styles.items}>
+                    {messages}
+                </div>
             </div>
         );
     }
