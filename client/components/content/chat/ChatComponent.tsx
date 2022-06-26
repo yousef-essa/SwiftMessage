@@ -1,5 +1,5 @@
 import React from "react";
-import styles from './Chat.module.css'
+import styles from './chat.module.css'
 import ChatInputComponent from "./input/ChatInputComponent";
 import ChatHeaderComponent from "./header/ChatHeaderComponent";
 import ChatContentComponent from "./content/ChatContentComponent";
@@ -7,6 +7,7 @@ import user from "../../../lib/user";
 import contact from "../../../lib/contact";
 import { Message, MessagePacket } from "@swiftmessage/common";
 import client from "../../../lib/client";
+import message from "../../../lib/message";
 
 export default class ChatComponent extends React.Component<any, any> {
     constructor(props: any) {
@@ -15,12 +16,11 @@ export default class ChatComponent extends React.Component<any, any> {
             messages: []
         }
 
-        contact.onContentChange = () => {
-            // this.resetMessages()
+        contact.onContentChange(() => {
             this.forceUpdate()
-        }
+        })
 
-        user.onMessageUpdate = () => {
+        message.onMessageUpdate = () => {
             this.forceUpdate()
         }
 
@@ -36,17 +36,6 @@ export default class ChatComponent extends React.Component<any, any> {
         const currentContent = contact.getCurrentContent();
         const messageData = new Message(username, currentContent, message);
         client.getPacketHandler().send(new MessagePacket(messageData, [currentContent]), client.getServer()!!)
-
-        // this.state.messages.push(`${username} ${message}`)
-        // this.setState({
-        //     messages: this.state.messages
-        // })
-    }
-
-    resetMessages() {
-        this.setState({
-            messages: []
-        })
     }
 
     render() {

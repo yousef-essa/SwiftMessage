@@ -18,9 +18,16 @@ export default class PersonalHandler {
 
         this.user = new User(username, null!!)
         this.contactHandler = new ContactHandler(this.user)
-        client.getPacketHandler().send(new UserAuthPacket(username), client.getServer()!!)
+
+        if (username != "Anonymous") {
+            client.getPacketHandler().send(new UserAuthPacket(username), client.getServer()!!)
+        }
 
         user.addUser(this.user)
+        this.onCreateUser()
+    }
+
+    onCreateUser(): void {
     }
 
     getContactHandler(): ContactHandler {

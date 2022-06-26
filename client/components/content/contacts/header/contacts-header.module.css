@@ -1,0 +1,13 @@
+.header {
+    display: flex;
+    width: 100%;
+
+    flex: 0 1 35px;
+    margin: 15px 0 30px;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+}

@@ -1,19 +1,9 @@
-#contacts {
-    justify-content: start;
-    align-items: start;
+.container {
+    display: flex;
+    flex-direction: column;
 
-    width: 200px;
-    border-right: black thin solid;
+    height: 100%;
+    width: 350px;
+
+    border-right: rgba(0, 0, 0, 0.5) thin solid;
 }
-
-.title {
-    font-weight: normal;
-    margin: 0;
-
-    height: 35px;
-
-    text-align: center;
-    border-bottom: black thin solid;
-}
-
-.container {}
