@@ -1,7 +1,7 @@
 import type {NextPage} from 'next'
-import HomeComponent from "../components/HomeComponent";
 import client from "../lib/client";
 import {useEffect} from "react";
+import HomeComponent from '../components/home/HomeComponent';
 
 let connected = false
 

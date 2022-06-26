@@ -1,8 +1,7 @@
 import React from "react";
-import UserComponent from "./user/UserComponent";
 import ContentComponent from "./content/ContentComponent";
-import user from "../lib/user";
-import styles from "./home-content.module.css"
+import user from "../../lib/user";
+import UserComponent from "./content/user/UserComponent";
 
 export default class HomeContentComponent extends React.Component<any, any> {
     constructor(props: any) {

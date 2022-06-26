@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./chatcontent.module.css";
+import styles from "./chat-content.module.css";
 import MessageComponent from "./message/MessageComponent";
-import user from "../../../../lib/user";
-import contact from "../../../../lib/contact";
+import user from "../../../../../lib/user";
+import contact from "../../../../../lib/contact";
 import { Message } from "@swiftmessage/common";
 
 export default class ChatContentComponent extends React.Component<any, any> {

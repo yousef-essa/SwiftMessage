@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './add-contact.module.css'
 import ContactElementComponent from "./element/ContactElementComponent";
-import contact from "../../../../lib/contact";
+import contact from "../../../../../lib/contact";
 
 export default class AddContactComponent extends React.Component<any, any> {
     constructor(props: any) {

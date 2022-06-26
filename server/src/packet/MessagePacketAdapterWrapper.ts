@@ -22,7 +22,8 @@ export default class MessagePacketAdapterWrapper extends MessagePacketAdapter {
 
         const sender = this.userHandler.getUser(context.getFrom())
         if (sender == null) {
-            throw new Error(`An nonexistent user attempted to send ${message} message to ${recipients} recipients.`)
+            console.log(`A non-authorized user attempted to send ${message} message to ${recipients} recipients.`)
+            return
         }
 
         for (const recipient of recipients) {

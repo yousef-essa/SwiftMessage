@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./chat-header.module.css";
-import contact from "../../../../lib/contact";
+import contact from "../../../../../lib/contact";
 
 export default class ChatHeaderComponent extends React.Component<any, any> {
     constructor(props: any) {

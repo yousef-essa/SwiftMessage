@@ -1,9 +1,9 @@
-import user from "../../lib/user";
+import user from "../../../../lib/user";
 import styles from "./user.module.css"
 
 import React from "react";
 import { UserAuthResponseType } from "@swiftmessage/common";
-import InputComponent from "../meta/InputComponent";
+import InputComponent from "../../../meta/input/InputComponent";
 
 export default class UserComponent extends React.Component<any, any> {
     constructor(props: any) {

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './chat-input.module.css'
-import contact from "../../../../lib/contact";
+import contact from "../../../../../lib/contact";
 
 export default class ChatInputComponent extends React.Component<any, any> {
     private readonly textInput

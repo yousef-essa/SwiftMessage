@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './contact-item.module.css'
-import contact from "../../../../../lib/contact";
+import contact from "../../../../../../lib/contact";
 
 export default class ContactItemComponent extends React.Component<any, any> {
     constructor(props: any) {

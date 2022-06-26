@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./contact-element.module.css"
-import user from "../../../../../lib/user";
-import contact from "../../../../../lib/contact";
+import user from "../../../../../../lib/user";
+import contact from "../../../../../../lib/contact";
 import {ContactRequestResponseType} from "@swiftmessage/common";
-import InputComponent from "../../../../meta/InputComponent";
+import InputComponent from "../../../../../meta/input/InputComponent";
 
 export default class ContactElementComponent extends React.Component<any, any> {
     private readonly textInput

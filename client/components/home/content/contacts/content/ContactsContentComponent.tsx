@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./contacts-content.module.css"
 import ContactItemComponent from "./item/ContactItemComponent";
-import user from "../../../../lib/user";
-import contact from "../../../../lib/contact";
+import user from "../../../../../lib/user";
+import contact from "../../../../../lib/contact";
 
 export default class ContactsContentComponent extends React.Component<any, any> {
     constructor(props: any) {
