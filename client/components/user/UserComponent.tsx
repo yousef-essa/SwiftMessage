@@ -1,27 +1,48 @@
 import user from "../../lib/user";
 import styles from "./user.module.css"
 
-function onInputSubmit(event: React.KeyboardEvent) {
-    if (event.key != 'Enter') {
-        return
+import React from "react";
+import { UserAuthResponseType } from "@swiftmessage/common";
+import InputComponent from "../meta/InputComponent";
+
+export default class UserComponent extends React.Component<any, any> {
+    constructor(props: any) {
+        super(props);
+
+        this.handleInputSubmit = this.handleInputSubmit.bind(this)
+        this.handleUsernameFailure = this.handleUsernameFailure.bind(this)
+
+        this.state = {
+            displayError: false
+        }
+
+        user.getPersonalHandler().onUsernameFailure = this.handleUsernameFailure
     }
 
-    const target = event.target as HTMLInputElement;
-    user.getPersonalHandler().createUser(target.value)
-    target.value = ""
-}
+    handleInputSubmit(value: string) {
+        user.getPersonalHandler().sendUsernameRequest(value)
+    }
 
-function User() {
-    return <div className={styles.container}>
-        <div className={styles.field}>
-            <h2 className={styles.title}>Username</h2>
-            <input className={styles.input} onKeyPress={(event) => {
-                onInputSubmit(event)
-            }}/>
+    handleUsernameFailure(username: string, reason: UserAuthResponseType) {
+        this.setState({
+            displayError: true
+        })
+    }
+
+    render() {
+        const displayError = this.state.displayError
+
+        return <div className={styles.container}>
+            <div className={styles.field}>
+                <h2 className={styles.title}>Username</h2>
+                <InputComponent
+                    className={styles.input}
+                    displayError={displayError}
+                    onSubmit={this.handleInputSubmit}
+                />
+            </div>
+
+            <button className={styles.button}>Submit</button>
         </div>
-
-        <button className={styles.button}>Submit</button>
-    </div>
+    }
 }
-
-export default User

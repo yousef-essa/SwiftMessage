@@ -1,5 +1,6 @@
 import {Connection} from "packet-system";
 import {User} from "@swiftmessage/common";
+import {UserAuthResponseType} from "@swiftmessage/common";
 
 export default class UserHandler {
     private readonly connectionMap = new Map<string, Connection>()
@@ -32,6 +33,14 @@ export default class UserHandler {
             return user
         }
         return null
+    }
+
+    validateUsername(username: string, connection: Connection): UserAuthResponseType {
+        if (this.hasUserByUsername(username)) {
+            return UserAuthResponseType.USERNAME_TAKEN
+        }
+        this.addUser(connection, username)
+        return UserAuthResponseType.ACCEPTED
     }
 
     hasUser(connection: Connection): boolean {

@@ -12,6 +12,7 @@ export default class ContactResponsePacketAdapterWrapper extends ContactResponse
         console.log(`contact response for ${username} username for ${reason} reason`)
 
         if (reason == ContactRequestResponseType.ACCEPTED) {
+            contact.onContactSuccess()
             user.getPersonalHandler().getContactHandler().addContact(username)
             return
         }

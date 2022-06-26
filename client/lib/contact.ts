@@ -33,6 +33,9 @@ export class ContactHandler {
 
     onContentError(reason: ContactRequestResponseType) {
     }
+
+    onContactSuccess() {
+    }
 }
 
 const instance = new ContactHandler()

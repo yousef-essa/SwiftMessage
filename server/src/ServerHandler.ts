@@ -1,11 +1,11 @@
 import {WebSocket, WebSocketServer} from 'ws'
 import {PacketHandler} from "packet-system";
 import ClientConnection from "./ClientConnection";
-import UserAuthPacketAdapterWrapper from "./packet/UserAuthPacketAdapterWrapper";
+import UserAuthRequestPacketAdapterWrapper from "./packet/UserAuthRequestPacketAdapterWrapper";
 import UserHandler from "./lib/UserHandler";
 import ContactRequestPacketAdapterWrapper from "./packet/ContactRequestPacketAdapterWrapper";
 import ContactHandler from "./lib/ContactHandler";
-import {CommonPacketHandler, ContactResponsePacketAdapter} from "@swiftmessage/common";
+import {CommonPacketHandler} from "@swiftmessage/common";
 import MessagePacketAdapterWrapper from "./packet/MessagePacketAdapterWrapper";
 
 export default class ServerHandler {
@@ -28,7 +28,7 @@ export default class ServerHandler {
             isServer: true
         })
 
-        this.packetHandler.registerPacket(new UserAuthPacketAdapterWrapper(this.userHandler))
+        this.packetHandler.registerPacket(new UserAuthRequestPacketAdapterWrapper(this.userHandler))
         this.packetHandler.registerPacket(new ContactRequestPacketAdapterWrapper(this.contactHandler))
         this.packetHandler.registerPacket(new MessagePacketAdapterWrapper(this.userHandler))
 

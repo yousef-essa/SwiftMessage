@@ -1,6 +1,6 @@
 import ContactHandler from "./ContactHandler";
 import client from "../client";
-import { User, UserAuthPacket } from "@swiftmessage/common";
+import { User, UserAuthRequestPacket, UserAuthResponseType } from "@swiftmessage/common";
 import user from "../user";
 
 export default class PersonalHandler {
@@ -11,6 +11,23 @@ export default class PersonalHandler {
         return this.user != null
     }
 
+    setUsernameFailure(username: string, reason: UserAuthResponseType) {
+        this.onUsernameFailure(username, reason)
+    }
+
+    setUsernameSuccess(username: string) {
+        this.createUser(username)
+    }
+
+    sendUsernameRequest(username: string) {
+        if (username != "Anonymous") {
+            client.getPacketHandler().send(new UserAuthRequestPacket(username), client.getServer()!!)
+        } else {
+            this.setUsernameSuccess(username)
+        }
+    }
+
+
     createUser(username: string) {
         if (this.user != null) {
             return
@@ -19,12 +36,11 @@ export default class PersonalHandler {
         this.user = new User(username, null!!)
         this.contactHandler = new ContactHandler(this.user)
 
-        if (username != "Anonymous") {
-            client.getPacketHandler().send(new UserAuthPacket(username), client.getServer()!!)
-        }
-
         user.addUser(this.user)
         this.onCreateUser()
+    }
+
+    onUsernameFailure(username: string, reason: UserAuthResponseType): void {
     }
 
     onCreateUser(): void {

@@ -4,6 +4,7 @@ import {CommonPacketHandler} from "@swiftmessage/common";
 import ContactResponsePacketAdapterWrapper from "./packet/ContactResponsePacketAdapterWrapper";
 import MessagePacketAdapterWrapper from "./packet/MessagePacketAdapterWrapper";
 import MessageReceivePacketAdapterWrapper from "./packet/MessageReceivePacketAdapterWrapper";
+import UserAuthResponsePacketAdapterWrapper from "./packet/UserAuthResponsePacketAdapterWrapper";
 
 export default class ClientHandler {
     private static REGEX: RegExp = /(?<=\[).+?(?=\])/
@@ -19,6 +20,8 @@ export default class ClientHandler {
         this.packetHandler = new CommonPacketHandler({
             debug: true
         })
+
+        this.packetHandler.registerPacket(new UserAuthResponsePacketAdapterWrapper())
         this.packetHandler.registerPacket(new MessagePacketAdapterWrapper())
         this.packetHandler.registerPacket(new ContactResponsePacketAdapterWrapper())
         this.packetHandler.registerPacket(new MessageReceivePacketAdapterWrapper())

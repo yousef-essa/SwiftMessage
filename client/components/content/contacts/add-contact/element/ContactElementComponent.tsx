@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./contact-element.module.css"
 import user from "../../../../../lib/user";
 import contact from "../../../../../lib/contact";
-import { ContactRequestResponseType } from "@swiftmessage/common";
+import {ContactRequestResponseType} from "@swiftmessage/common";
+import InputComponent from "../../../../meta/InputComponent";
 
 export default class ContactElementComponent extends React.Component<any, any> {
     private readonly textInput
@@ -16,7 +17,6 @@ export default class ContactElementComponent extends React.Component<any, any> {
         this.textInput = React.createRef()
 
         this.displayError = this.displayError.bind(this)
-        this.onContactSubmit = this.onContactSubmit.bind(this)
         this.handleBlur = this.handleBlur.bind(this)
         this.handleSubmitButton = this.handleSubmitButton.bind(this)
 
@@ -29,42 +29,17 @@ export default class ContactElementComponent extends React.Component<any, any> {
 
     displayError(reason: ContactRequestResponseType) {
         this.setState({
-            displayError: reason
+            displayError: true
         })
     }
 
-    onContactSubmit(event: React.KeyboardEvent<HTMLInputElement>) {
-        console.log(event.key)
-        if (event.key != "Enter") {
-            this.resetStyle()
-            return
-        }
-
-        const inputElement = event.target as HTMLInputElement
-
-        const value = inputElement.value
-        this.validateValue(value)
-    }
-
-    hideElement() {
-        if (!this.state.visible) {
-            return
-        }
-
-        this.resetStyle()
-        this.props.onHide()
-    }
-
-    resetStyle() {
-        if (this.state.displayError) {
-            this.setState({
-                displayError: undefined
-            })
-        }
-    }
-
     handleBlur(event: React.FocusEvent) {
-        console.log(event.target)
+        // if the event occurred due to user
+        // tabbing out, do not continue
+        if (event.relatedTarget == null) {
+            return
+        }
+
         if (event.currentTarget.contains(event.relatedTarget)) {
             return
         }
@@ -72,18 +47,17 @@ export default class ContactElementComponent extends React.Component<any, any> {
         this.hideElement()
     }
 
-    handleSubmitButton() {
-        const inputElement = this.textInput.current as HTMLInputElement
-        this.validateValue(inputElement.value)
-    }
+    handleSubmitButton(event: React.MouseEvent) {
+        event.preventDefault()
 
-    validateValue(value: string) {
+        const inputElement = this.textInput.current as HTMLInputElement
+        const value = inputElement.value
+
         if (value == "") {
             return
         }
 
         this.submitValue(value)
-        this.resetInput()
     }
 
     submitValue(value: string) {
@@ -94,35 +68,45 @@ export default class ContactElementComponent extends React.Component<any, any> {
         }
 
         contactHandler.requestContact(value)
-        this.hideElement()
+        // this.hideElement()
     }
 
-    resetInput() {
-        const inputElement = this.textInput.current as HTMLInputElement
-        inputElement.value = ""
+    hideElement() {
+        if (!this.state.visible) {
+            return
+        }
+
+        this.props.onHide()
     }
 
     render() {
         const displayError = this.state.displayError
-        const error = (displayError && styles.error) ?? ""
 
         return (
             <div
-                tabIndex="-1"
                 className={styles.container}
                 onBlur={this.handleBlur}
             >
                 <div className={styles.field}>
                     <div className={styles.title}>Enter the contact's name</div>
-                    <input
-                        ref={this.textInput}
-                        className={styles.input + " " + error} onKeyDown={this.onContactSubmit}/>
+
+                    <InputComponent
+                        instance={this.textInput}
+                        className={styles.input}
+                        displayError={displayError}
+                        onSubmit={this.submitValue}
+                    />
+
+                    {/*<input*/}
+                    {/*    ref={this.textInput}*/}
+                    {/*    className={styles.input + " " + error} onKeyDown={this.onContactSubmit}/>*/}
                 </div>
 
                 <button
                     className={styles.button}
                     onClick={this.handleSubmitButton}
-                >Submit</button>
+                >Submit
+                </button>
             </div>
         );
     }

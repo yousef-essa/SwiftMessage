@@ -1,7 +1,7 @@
 import {Packet} from "packet-system";
 
-export default class UserAuthPacket extends Packet {
-    public static readonly PACKET_NAME = "UserAuth"
+export default class UserAuthRequestPacket extends Packet {
+    public static readonly PACKET_NAME = "UserAuthRequest"
     private readonly username: string
 
     constructor(username: string) {
@@ -14,7 +14,7 @@ export default class UserAuthPacket extends Packet {
     }
 
     type(): string {
-        return UserAuthPacket.PACKET_NAME;
+        return UserAuthRequestPacket.PACKET_NAME;
     }
 
     serialize(): string {
