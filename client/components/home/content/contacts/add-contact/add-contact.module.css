@@ -11,5 +11,7 @@
 
 .button {
     font-size: large;
-    padding: 10px 30px;
+    padding: 6px 18px;
+
+    border-radius: 6px;
 }

@@ -1,7 +1,12 @@
 .container {
+    display: flex;
+    flex-direction: column;
+
     height: 100%;
     width: 255px;
-    overflow-y: auto;
+
+    align-items: center;
 
     margin: 0 20px;
+    overflow-y: auto;
 }

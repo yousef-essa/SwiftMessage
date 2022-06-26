@@ -37,6 +37,7 @@ export default class UserComponent extends React.Component<any, any> {
                 <h2 className={styles.title}>Username</h2>
                 <InputComponent
                     className={styles.input}
+                    placeholder={"Insert your username here"}
                     displayError={displayError}
                     onSubmit={this.handleInputSubmit}
                 />

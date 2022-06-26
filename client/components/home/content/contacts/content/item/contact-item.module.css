@@ -2,19 +2,20 @@
     display: flex;
     flex-direction: column;
 
+    width: 0;
     min-width: 80px;
 
     border: rgba(0, 0, 0, .5) thin solid;
-    border-radius: 10px;
+    border-radius: 12px;
 
-    padding: 20px;
+    padding: 10px 80px;
     margin-bottom: 10px;
 
     justify-content: center;
     align-items: center;
 }
 
-.container:hover {
+.container:hover:not(.selected) {
     background-color: darkgray;
 }
 
@@ -23,7 +24,7 @@
 .onlineDate {}
 
 .username, .onlineDate {
-    padding-left: 5px;
+    user-select: none;
 }
 
 .selected {

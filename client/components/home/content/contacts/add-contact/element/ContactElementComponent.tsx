@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./contact-element.module.css"
 import user from "../../../../../../lib/user";
 import contact from "../../../../../../lib/contact";
-import {ContactRequestResponseType} from "@swiftmessage/common";
+import { ContactRequestResponseType } from "@swiftmessage/common";
 import InputComponent from "../../../../../meta/input/InputComponent";
 
 export default class ContactElementComponent extends React.Component<any, any> {
@@ -34,6 +34,8 @@ export default class ContactElementComponent extends React.Component<any, any> {
     }
 
     handleBlur(event: React.FocusEvent) {
+        console.log(event.relatedTarget)
+
         // if the event occurred due to user
         // tabbing out, do not continue
         if (event.relatedTarget == null) {
@@ -83,30 +85,29 @@ export default class ContactElementComponent extends React.Component<any, any> {
         const displayError = this.state.displayError
 
         return (
-            <div
-                className={styles.container}
-                onBlur={this.handleBlur}
-            >
-                <div className={styles.field}>
-                    <div className={styles.title}>Enter the contact's name</div>
+            <div className={styles.filter}>
+                <div
+                    className={styles.container}
+                    onBlur={this.handleBlur}
+                    tabindex="-1"
+                >
+                    <div className={styles.field}>
+                        <div className={styles.title}>Enter the contact's name</div>
 
-                    <InputComponent
-                        instance={this.textInput}
-                        className={styles.input}
-                        displayError={displayError}
-                        onSubmit={this.submitValue}
-                    />
+                        <InputComponent
+                            instance={this.textInput}
+                            className={styles.input}
+                            placeholder={"Insert the contact's username here"}
+                            displayError={displayError}
+                            onSubmit={this.submitValue}
+                        />
+                    </div>
 
-                    {/*<input*/}
-                    {/*    ref={this.textInput}*/}
-                    {/*    className={styles.input + " " + error} onKeyDown={this.onContactSubmit}/>*/}
+                    <button
+                        className={styles.button}
+                        onClick={this.handleSubmitButton}
+                    >Submit</button>
                 </div>
-
-                <button
-                    className={styles.button}
-                    onClick={this.handleSubmitButton}
-                >Submit
-                </button>
             </div>
         );
     }

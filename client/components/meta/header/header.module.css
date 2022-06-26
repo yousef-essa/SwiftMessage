@@ -19,6 +19,10 @@
 
     background-color: white;
 
-    border: rgba(0, 0, 0, .5);
+    border: rgba(0, 0, 0, .5) thin solid;
     border-radius: 90px;
+}
+
+.circle:hover {
+    opacity: 90%;
 }

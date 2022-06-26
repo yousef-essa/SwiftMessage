@@ -5,27 +5,35 @@
     justify-content: center;
     align-items: center;
 
+    gap: 10px;
+
     margin-bottom: 20px;
 }
 
-.buttonContainer {
-    display: flex;
-    flex-direction: column;
+/*.buttonContainer {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
 
-    width: 19vw;
-    position: absolute;
+/*    width: 19vw;*/
+/*    position: absolute;*/
 
-    align-items: flex-end;
-}
+/*    align-items: flex-end;*/
+/*}*/
 
 .button {
     width: 60px;
     z-index: 2;
 }
 
-.input {
-    width: 20vw;
-    height: 30px;
+.button, .input {
     background-color: white;
+}
+
+.input {
+    width: 15vw;
+    height: 30px;
+
+    border-radius: 6px;
+
     z-index: 1;
 }

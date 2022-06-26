@@ -1,3 +1,16 @@
+.filter {
+    height: 100%;
+    width: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-color: rgba(0, 0, 0, .5);
+
+    z-index: 3;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -16,6 +29,7 @@
     align-items: center;
 
     background-color: white;
+    z-index: 4;
 }
 
 .field {
@@ -36,7 +50,8 @@
 }
 
 .input {
-    width: inherit;
+    width: 215px;
+    border-radius: 6px;
 }
 
 .button {
