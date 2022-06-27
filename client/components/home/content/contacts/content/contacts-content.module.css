@@ -10,3 +10,10 @@
     margin: 0 20px;
     overflow-y: auto;
 }
+
+@media only screen and (max-width: 600px) {
+    .container {
+        align-items: start;
+        padding-left: 20px;
+    }
+}
