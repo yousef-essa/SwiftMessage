@@ -46,6 +46,10 @@ export default class ServerHandler {
             this.onClientConnection(connection)
 
             const clientConnection = new ClientConnection(connection)
+            clientConnection.onClose = () => {
+                this.userHandler.removeUser(clientConnection)
+            }
+
             connection.on('message', (object) => {
                 const message = object.toString()
 

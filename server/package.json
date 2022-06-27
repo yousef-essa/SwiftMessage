@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "packet-system": "^0.7.0",
+    "packet-system": "^0.7.1",
     "ws": "^8.8.0"
   },
   "devDependencies": {

@@ -21,6 +21,20 @@ export default class User {
         this.messageMap.set(user, [])
     }
 
+    removeContact(username: string) {
+        // Micro-optimization Warning!!
+        // we can remove a unnecessary call operation
+        // here by changing the messageMap key to string
+        // instead of User; might consider this later
+        const user = this.contactMap.get(username)
+        if (user == null) {
+            return
+        }
+
+        this.contactMap.delete(username)
+        this.messageMap.delete(user)
+    }
+
     getAllContacts(): User[] {
         return Array.from(this.contactMap.values())
     }

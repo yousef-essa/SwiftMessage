@@ -52,6 +52,6 @@
     "typescript": "^3.9.10"
   },
   "dependencies": {
-    "packet-system": "^0.7.0"
+    "packet-system": "^0.7.1"
   }
 }

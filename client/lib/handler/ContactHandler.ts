@@ -1,6 +1,8 @@
 import {ContactRequestPacket, User } from "@swiftmessage/common";
 import client from "../client";
 import user from "../user";
+import contact from "../contact";
+import message from "../message";
 
 export default class ContactHandler {
     private readonly user: User
@@ -19,10 +21,21 @@ export default class ContactHandler {
 
     addContact(username: string) {
         this.user.addContact(user.getUserOrCreate(username))
-        this.onAddContact()
+        this.onContactUpdate()
     }
 
-    onAddContact() {}
+    removeContact(username: string) {
+        // reset the current contact if the
+        // soon-to-be username contact matched
+        if (contact.getCurrentContent() == username) {
+            contact.setCurrentContent("")
+        }
+
+        this.user.removeContact(username)
+        this.onContactUpdate()
+    }
+
+    onContactUpdate() {}
 
     getContacts(): User[] {
         return this.user.getAllContacts()

@@ -32,9 +32,9 @@ export default class MessagePacketAdapterWrapper extends MessagePacketAdapter {
                 continue
             }
 
-            // if the sender is not added to the recipient, add them!
-            if (!user.hasContact(sender.getUsername())) {
-                user.addContact(sender)
+            // if the sender has sent any messages
+            // send a contact add packet to sender
+            if ((user.getMessagesTo(sender.getUsername())?.length ?? 0) == 0) {
                 context.getPacketHandler().send(new ContactResponsePacket(sender.getUsername(), ContactRequestResponseType.ACCEPTED), user.getConnection())
             }
 

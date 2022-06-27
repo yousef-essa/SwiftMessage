@@ -35,6 +35,10 @@ export default class ContactHandler {
         // out the accepted response
         senderUser.addContact(targetUser)
 
+        // this is for disposal purposes
+        // e.g: when the target user disconnects
+        targetUser.addContact(senderUser)
+
         // everything checks out!
         return ContactRequestResponseType.ACCEPTED
     }

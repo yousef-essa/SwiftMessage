@@ -1,6 +1,6 @@
 import {Connection} from "packet-system";
-import {User} from "@swiftmessage/common";
-import {UserAuthResponseType} from "@swiftmessage/common";
+import {ContactRemovalPacket, User, UserAuthResponseType} from "@swiftmessage/common";
+import server from "../server";
 
 export default class UserHandler {
     private readonly connectionMap = new Map<string, Connection>()
@@ -15,7 +15,19 @@ export default class UserHandler {
     }
 
     removeUser(connection: Connection) {
-        console.log(`Removed user ${this.getUser(connection)?.getUsername()} from the registry with ${connection.id()} id!`)
+        const user = this.getUser(connection);
+        if (user == undefined) {
+            return
+        }
+
+        console.log(`Removed user ${user.getUsername()} from the registry with ${connection.id()} id!`)
+
+        // sends a removal packet to all users that
+        // are in contact with this soon-to-be nonexistent
+        // user
+        for (const contact of user.getAllContacts()) {
+            server.getPacketHandler().send(new ContactRemovalPacket(user.getUsername()), contact.getConnection())
+        }
 
         this.connectionMap.delete(connection.id())
         this.userMap.delete(connection.id())

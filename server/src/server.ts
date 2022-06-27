@@ -23,3 +23,5 @@ function onClientDisconnection() {
 }
 
 console.log('Listening to port 9000')
+
+export default serverHandler

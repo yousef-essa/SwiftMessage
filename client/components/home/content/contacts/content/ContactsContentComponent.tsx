@@ -10,7 +10,7 @@ export default class ContactsContentComponent extends React.Component<any, any> 
 
         this.generateContactList = this.generateContactList.bind(this)
 
-        user.getPersonalHandler().getContactHandler().onAddContact = () => this.forceUpdate()
+        user.getPersonalHandler().getContactHandler().onContactUpdate = () => this.forceUpdate()
         contact.onContentChange(() => {
             this.forceUpdate()
         })

@@ -9,6 +9,10 @@ class UserHandler {
         this.userMap.set(user.getUsername(), user)
     }
 
+    removeUser(username: string) {
+        this.userMap.delete(username)
+    }
+
     getUserOrCreate(username: string): User {
         let user = this.getUser(username)
 

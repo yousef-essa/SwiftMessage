@@ -5,6 +5,7 @@ import ContactResponsePacketAdapterWrapper from "./packet/ContactResponsePacketA
 import MessagePacketAdapterWrapper from "./packet/MessagePacketAdapterWrapper";
 import MessageReceivePacketAdapterWrapper from "./packet/MessageReceivePacketAdapterWrapper";
 import UserAuthResponsePacketAdapterWrapper from "./packet/UserAuthResponsePacketAdapterWrapper";
+import ContactRemovalPacketAdapterWrapper from "./packet/ContactRemovalPacketAdapterWrapper";
 
 export default class ClientHandler {
     private static REGEX: RegExp = /(?<=\[).+?(?=\])/
@@ -24,6 +25,7 @@ export default class ClientHandler {
         this.packetHandler.registerPacket(new UserAuthResponsePacketAdapterWrapper())
         this.packetHandler.registerPacket(new MessagePacketAdapterWrapper())
         this.packetHandler.registerPacket(new ContactResponsePacketAdapterWrapper())
+        this.packetHandler.registerPacket(new ContactRemovalPacketAdapterWrapper())
         this.packetHandler.registerPacket(new MessageReceivePacketAdapterWrapper())
 
         this.onServerConnection = this.onServerConnection.bind(this)
