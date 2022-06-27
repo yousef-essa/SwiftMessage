@@ -34,7 +34,7 @@ export default class ChatComponent extends React.Component<any, any> {
         }
 
         const currentContent = contact.getCurrentContent();
-        const messageData = new Message(username, currentContent, message);
+        const messageData = new Message(username, currentContent, message, new Date());
         client.getPacketHandler().send(new MessagePacket(messageData, [currentContent]), client.getServer()!!)
     }
 

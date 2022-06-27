@@ -33,7 +33,16 @@ export default class ChatContentComponent extends React.Component<any, any> {
         const targetMessages = user.getUser(targetUsername)?.getMessagesTo(selfUser.getUsername()) ?? []
 
         targetMessages.map((value: Message) => selfMessages.push(value))
-        return selfMessages
+        return selfMessages.sort((a, b) => {
+            const first = a.getDate().getTime();
+            const second = b.getDate().getTime();
+            if (first > second) {
+                return 1
+            } else if (second > first) {
+                return -1
+            }
+            return 0
+        })
     }
 
     render() {
