@@ -33,10 +33,9 @@ export default class PersonalHandler {
             return
         }
 
-        this.user = new User(username, null!!)
+        this.user = user.createUser(username, null!)
         this.contactHandler = new ContactHandler(this.user)
 
-        user.addUser(this.user)
         this.onCreateUser()
     }
 

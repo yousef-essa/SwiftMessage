@@ -1,5 +1,6 @@
 import { Connection } from "packet-system";
 import Message from "./Message";
+import StringUtil from "../StringUtil";
 
 export default class User {
     private readonly username: string
@@ -13,7 +14,7 @@ export default class User {
     }
 
     hasContact(username: string): boolean {
-        return this.contactMap.has(username)
+        return this.getContact(username) != null
     }
 
     addContact(user: User) {
@@ -21,17 +22,26 @@ export default class User {
         this.messageMap.set(user, [])
     }
 
+    getContact(username: string): User | null {
+        // @ts-ignore
+        for (const contactUser of this.contactMap.values()) {
+            if (!StringUtil.equals(contactUser.getUsername(), username)) {
+                continue
+            }
+
+            return contactUser
+        }
+
+        return null
+    }
+
     removeContact(username: string) {
-        // Micro-optimization Warning!!
-        // we can remove a unnecessary call operation
-        // here by changing the messageMap key to string
-        // instead of User; might consider this later
-        const user = this.contactMap.get(username)
+        const user = this.getContact(username)
         if (user == null) {
             return
         }
 
-        this.contactMap.delete(username)
+        this.contactMap.delete(user.getUsername())
         this.messageMap.delete(user)
     }
 
@@ -59,7 +69,7 @@ export default class User {
     getMessagesTo(recipient: string): Message[] | null {
         // @ts-ignore
         for (const [user, value] of this.messageMap.entries()) {
-            if (user.getUsername() != recipient) {
+            if (!StringUtil.equals(user.getUsername(), recipient)) {
                 continue
             }
 

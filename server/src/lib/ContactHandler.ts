@@ -9,7 +9,7 @@ export default class ContactHandler {
         this.userHandler = userHandler;
     }
 
-    validateRequest(senderConnection: Connection, targetUsername: string) {
+    validateRequest(senderConnection: Connection, targetUsername: string): ContactRequestResponseType {
         const senderUser = this.userHandler.getUser(senderConnection)
 
         console.log(`Sender id: ${senderConnection.id()}`)

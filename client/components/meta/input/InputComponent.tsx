@@ -69,7 +69,7 @@ export default class InputComponent extends React.Component<any, any> {
         const value = this.props.placeholder ?? ""
 
         if (!this.reset && this.shouldDisplayError()) {
-            className += ` ${styles.error}`
+            className += ` error`
         }
 
         if (this.reset) {

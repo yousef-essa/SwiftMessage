@@ -1,5 +1,5 @@
 import {Connection} from "packet-system";
-import {ContactRemovalPacket, User, UserAuthResponseType} from "@swiftmessage/common";
+import {ContactRemovalPacket, StringUtil, User, UserAuthResponseType} from "@swiftmessage/common";
 import server from "../server";
 
 export default class UserHandler {
@@ -39,7 +39,7 @@ export default class UserHandler {
 
     getUserByUsername(username: string): User | null {
         for (const user of this.userMap.values()) {
-            if (user.getUsername() != username) {
+            if (!StringUtil.equals(user.getUsername(), username)) {
                 continue
             }
             return user
@@ -48,9 +48,14 @@ export default class UserHandler {
     }
 
     validateUsername(username: string, connection: Connection): UserAuthResponseType {
+        if (!StringUtil.isUsernameSafe(username)) {
+            return UserAuthResponseType.UNSAFE_USERNAME
+        }
+
         if (this.hasUserByUsername(username)) {
             return UserAuthResponseType.USERNAME_TAKEN
         }
+
         this.addUser(connection, username)
         return UserAuthResponseType.ACCEPTED
     }

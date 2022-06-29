@@ -34,6 +34,9 @@ export default class ChatComponent extends React.Component<any, any> {
         }
 
         const currentContent = contact.getCurrentContent();
+
+        // the date are overwritten in the server-side
+        // so that the client-side cannot manipulate it
         const messageData = new Message(username, currentContent, message, new Date());
         client.getPacketHandler().send(new MessagePacket(messageData, [currentContent]), client.getServer()!!)
     }

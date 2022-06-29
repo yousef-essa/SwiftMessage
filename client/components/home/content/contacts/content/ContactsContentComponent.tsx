@@ -3,6 +3,7 @@ import styles from "./contacts-content.module.css"
 import ContactItemComponent from "./item/ContactItemComponent";
 import user from "../../../../../lib/user";
 import contact from "../../../../../lib/contact";
+import ScrollableComponent from "../../../../meta/scroll/ScrollableComponent";
 
 export default class ContactsContentComponent extends React.Component<any, any> {
     constructor(props: any) {
@@ -28,7 +29,7 @@ export default class ContactsContentComponent extends React.Component<any, any> 
 
         return (
             <div className={styles.container}>
-                {contacts}
+                <ScrollableComponent className={styles.items} elements={contacts}/>
             </div>
         );
     }

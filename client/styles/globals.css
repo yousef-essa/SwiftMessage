@@ -37,9 +37,8 @@ input {
   border-radius: 20px;
 }
 
-input:focus {
-  border: 2px solid #3c5a7e;
-  outline: none;
+input:focus:not(.error) {
+  outline: 1px solid #3c5a7e;
 }
 
 button {
@@ -65,4 +64,8 @@ a {
 
 .border-bottom {
   border-bottom: rgba(0, 0, 0, .5) thin solid;
+}
+
+.error {
+  outline: red solid thin;
 }

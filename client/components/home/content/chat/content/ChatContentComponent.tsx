@@ -3,25 +3,12 @@ import styles from "./chat-content.module.css";
 import MessageComponent from "./message/MessageComponent";
 import user from "../../../../../lib/user";
 import contact from "../../../../../lib/contact";
-import { Message } from "@swiftmessage/common";
+import {Message} from "@swiftmessage/common";
+import ScrollableComponent from "../../../../meta/scroll/ScrollableComponent";
 
 export default class ChatContentComponent extends React.Component<any, any> {
-    private ref: HTMLDivElement | null = null
-
     constructor(props: any) {
         super(props);
-    }
-
-    componentDidMount() {
-        this.scrollToBottom()
-    }
-
-    componentDidUpdate(prevState: Readonly<any>, snapshot?: any) {
-        this.scrollToBottom()
-    }
-
-    scrollToBottom() {
-        this.ref?.scrollBy(0, this.ref?.scrollHeight)
     }
 
     generateMessages() {
@@ -52,10 +39,11 @@ export default class ChatContentComponent extends React.Component<any, any> {
         })
 
         return (
-            <div ref={ref => this.ref = ref} className={styles.container}>
-                <div className={styles.items}>
-                    {messages}
-                </div>
+            <div className={styles.container}>
+                <ScrollableComponent
+                    className={styles.items}
+                    elements={messages}
+                />
             </div>
         );
     }

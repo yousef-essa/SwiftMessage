@@ -30,5 +30,6 @@ export default class UserAuthResponsePacket extends Packet {
 
 export enum UserAuthResponseType {
     ACCEPTED= "ACCEPTED",
-    USERNAME_TAKEN = "USERNAME_TAKEN"
+    USERNAME_TAKEN = "USERNAME_TAKEN",
+    UNSAFE_USERNAME = "UNSAFE_USERNAME",
 }

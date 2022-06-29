@@ -1,4 +1,4 @@
-import { ContactRequestResponseType } from "@swiftmessage/common"
+import { ContactRequestResponseType, StringUtil } from "@swiftmessage/common"
 
 export class ContactHandler {
     private readonly listeners = new Map<string, Function[]>()
@@ -11,7 +11,7 @@ export class ContactHandler {
     }
 
     setCurrentContent(username: string) {
-        if (this.currentContent == username) {
+        if (StringUtil.equals(this.currentContent, username)) {
             return
         }
         this.currentContent = username

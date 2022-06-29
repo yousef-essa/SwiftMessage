@@ -16,7 +16,7 @@ export default class Message {
         const from = args[0]
         const to = args[1]
         const date = args[2]
-        const message = args.slice(3).join("")
+        const message = args.slice(3).join(" ")
 
         return new Message(from, to, message, new Date(date))
     }

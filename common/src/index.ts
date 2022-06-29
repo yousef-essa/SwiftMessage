@@ -15,6 +15,9 @@ import UserAuthResponsePacket, { UserAuthResponseType } from "./packet/UserAuthR
 import UserAuthResponsePacketAdapter from "./packet/UserAuthResponsePacketAdapter";
 import ContactRemovalPacket from "./packet/ContactRemovalPacket";
 import ContactRemovalPacketAdapter from "./packet/ContactRemovalPacketAdapter";
+import StringUtil from "./StringUtil";
+import ContactAddPacketAdapter from "./packet/ContactAddPacketAdapter";
+import ContactAddPacket from "./packet/ContactAddPacket";
 
 export {
     CommonPacketHandler,
@@ -30,10 +33,13 @@ export {
     ContactRequestResponseType,
     ContactResponsePacket,
     ContactResponsePacketAdapter,
+    ContactAddPacket,
+    ContactAddPacketAdapter,
     ContactRemovalPacket,
     ContactRemovalPacketAdapter,
     MessagePacket,
     MessagePacketAdapter,
     MessageReceivePacket,
     MessageReceivePacketAdapter,
+    StringUtil,
 }

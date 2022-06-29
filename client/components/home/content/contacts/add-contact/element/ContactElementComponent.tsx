@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./contact-element.module.css"
 import user from "../../../../../../lib/user";
 import contact from "../../../../../../lib/contact";
-import { ContactRequestResponseType } from "@swiftmessage/common";
+import {StringUtil} from "@swiftmessage/common";
 import InputComponent from "../../../../../meta/input/InputComponent";
 
 export default class ContactElementComponent extends React.Component<any, any> {
@@ -19,6 +19,7 @@ export default class ContactElementComponent extends React.Component<any, any> {
         this.displayError = this.displayError.bind(this)
         this.handleBlur = this.handleBlur.bind(this)
         this.handleSubmitButton = this.handleSubmitButton.bind(this)
+        this.submitValue = this.submitValue.bind(this)
 
         contact.onContentError = this.displayError
     }
@@ -27,7 +28,7 @@ export default class ContactElementComponent extends React.Component<any, any> {
         (this.textInput.current as HTMLElement).focus()
     }
 
-    displayError(reason: ContactRequestResponseType) {
+    displayError() {
         this.setState({
             displayError: true
         })
@@ -65,12 +66,13 @@ export default class ContactElementComponent extends React.Component<any, any> {
     submitValue(value: string) {
         const personalHandler = user.getPersonalHandler();
         const contactHandler = personalHandler.getContactHandler();
-        if (personalHandler.getUsername() == value || contactHandler.hasContact(value)) {
-            console.log(`${value} is already in your contacts list!`)
+
+        if (!StringUtil.isUsernameSafe(value)) {
+            this.displayError()
+            return
         }
 
         contactHandler.requestContact(value)
-        // this.hideElement()
     }
 
     hideElement() {
@@ -106,7 +108,8 @@ export default class ContactElementComponent extends React.Component<any, any> {
                     <button
                         className={styles.button}
                         onClick={this.handleSubmitButton}
-                    >Submit</button>
+                    >Submit
+                    </button>
                 </div>
             </div>
         );

@@ -4,10 +4,17 @@
 
     height: 100%;
     width: 255px;
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
 
     align-items: center;
 
-    margin: 0 20px;
+    margin-left: 20px;
     overflow-y: auto;
 }
 

@@ -1,5 +1,5 @@
 import {WebSocket, WebSocketServer} from 'ws'
-import {PacketHandler} from "packet-system";
+import {Connection, PacketHandler} from "packet-system";
 import ClientConnection from "./ClientConnection";
 import UserAuthRequestPacketAdapterWrapper from "./packet/UserAuthRequestPacketAdapterWrapper";
 import UserHandler from "./lib/UserHandler";
@@ -29,7 +29,7 @@ export default class ServerHandler {
         })
 
         this.packetHandler.registerPacket(new UserAuthRequestPacketAdapterWrapper(this.userHandler))
-        this.packetHandler.registerPacket(new ContactRequestPacketAdapterWrapper(this.contactHandler))
+        this.packetHandler.registerPacket(new ContactRequestPacketAdapterWrapper(this.contactHandler, this.userHandler))
         this.packetHandler.registerPacket(new MessagePacketAdapterWrapper(this.userHandler))
 
         this.onClientConnection = this.onClientConnection.bind(this)
@@ -62,13 +62,13 @@ export default class ServerHandler {
         })
     }
 
-    onClientConnection(connection: WebSocket) {
+    onClientConnection(connection: Connection) {
     }
 
-    onClientMessage(connection: WebSocket, message: String) {
+    onClientMessage(connection: Connection, message: String) {
     }
 
-    onClientDisconnection(connection: WebSocket) {
+    onClientDisconnection(connection: Connection) {
     }
 
     getPacketHandler() {

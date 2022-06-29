@@ -1,4 +1,4 @@
-import {ContactRequestPacket, User } from "@swiftmessage/common";
+import {ContactRequestPacket, StringUtil, User } from "@swiftmessage/common";
 import client from "../client";
 import user from "../user";
 import contact from "../contact";
@@ -16,6 +16,17 @@ export default class ContactHandler {
     }
 
     requestContact(username: string) {
+        const personalHandler = user.getPersonalHandler();
+        const contactHandler = personalHandler.getContactHandler();
+        if (StringUtil.equals(personalHandler.getUsername(), username)) {
+            console.log(`You cannot add yourself, silly.`)
+            return
+        }
+
+        if (contactHandler.hasContact(username)) {
+            console.log(`${username} is already in your contacts list!`)
+            return
+        }
         client.getPacketHandler().send(new ContactRequestPacket(username), client.getServer()!!)
     }
 

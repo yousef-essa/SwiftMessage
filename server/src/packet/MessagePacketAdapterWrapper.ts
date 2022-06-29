@@ -1,11 +1,11 @@
 import {PacketContext} from "packet-system";
 import UserHandler from "../lib/UserHandler";
 import {
-    ContactRequestResponseType,
-    ContactResponsePacket,
+    MessagePacket,
+    ContactAddPacket,
+    Message,
     MessagePacketAdapter, MessageReceivePacket
 } from "@swiftmessage/common";
-import {MessagePacket} from "@swiftmessage/common";
 
 export default class MessagePacketAdapterWrapper extends MessagePacketAdapter {
     private readonly userHandler: UserHandler
@@ -17,7 +17,11 @@ export default class MessagePacketAdapterWrapper extends MessagePacketAdapter {
 
     onReceive(context: PacketContext<MessagePacket>): void {
         const packet = context.getPacket()
-        const message = packet.getMessage()
+        const oldMessage = packet.getMessage()
+
+        // the server side has overwritten the date
+        // as they prone to manipulation
+        const message = new Message(oldMessage.getFrom(), oldMessage.getTo(), oldMessage.getMessage(), new Date())
         const recipients = packet.getRecipients()
 
         const sender = this.userHandler.getUser(context.getFrom())
@@ -35,7 +39,7 @@ export default class MessagePacketAdapterWrapper extends MessagePacketAdapter {
             // if the sender has sent any messages
             // send a contact add packet to sender
             if ((user.getMessagesTo(sender.getUsername())?.length ?? 0) == 0) {
-                context.getPacketHandler().send(new ContactResponsePacket(sender.getUsername(), ContactRequestResponseType.ACCEPTED), user.getConnection())
+                context.getPacketHandler().send(new ContactAddPacket(sender.getUsername()), user.getConnection())
             }
 
             // sender sent message to user, with the following message
