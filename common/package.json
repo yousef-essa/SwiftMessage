@@ -1,57 +1,34 @@
 {
-  "version": "0.1.0",
-  "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "name": "@swiftmessage/common",
+  "version": "0.2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "source": "src/index.ts",
+  "typings": "./dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
-  "engines": {
-    "node": ">=10"
+  "exports": {
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.modern.js"
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
+    "test": "jest --config=jest.config.cjs",
+    "build": "microbundle",
+    "dev": "microbundle watch"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
-  "name": "@swiftmessage/common",
+  "keywords": [],
   "author": "yousef-essa",
-  "module": "dist/common-1.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/common-1.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/common-1.esm.js",
-      "limit": "10 KB"
-    }
-  ],
-  "devDependencies": {
-    "@size-limit/preset-small-lib": "^7.0.8",
-    "husky": "^8.0.1",
-    "size-limit": "^7.0.8",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.4.0",
-    "typescript": "^3.9.10"
-  },
+  "license": "MIT",
   "dependencies": {
-    "packet-system": "^0.7.1"
+    "packet-system": "^0.7.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.4",
+    "@types/mocha": "^9.1.1",
+    "jest": "^28.1.2",
+    "microbundle": "^0.15.0",
+    "ts-jest": "^28.0.5",
+    "typescript": "^4.7.4"
   }
 }

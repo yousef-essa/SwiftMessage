@@ -1,5 +1,5 @@
 export default class StringUtil {
-    private static readonly UNSAFE_USERNAME_REGEX = new RegExp('[^\\w]')
+    private static readonly UNSAFE_USERNAME_REGEX = new RegExp('[^\\w]-')
 
     /**
      * Checks if the given username is safe to be used.
