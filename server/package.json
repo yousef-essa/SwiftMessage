@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "esrun src/server.ts"
+    "server": "esrun src/server.ts"
   },
   "type": "module",
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "packet-system": "^0.7.1",
     "ws": "^8.8.0"
